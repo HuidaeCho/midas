@@ -2,8 +2,8 @@
 
 ## Binaries for Windows
 
-* MEFA (Memory-Efficient Flow Accumulation)
-* MESHED (Memory-Efficient Watershed Delineation)
+* [MEFA](https://github.com/HuidaeCho/mefa) (Memory-Efficient Flow Accumulation)
+* [MESHED](https://github.com/HuidaeCho/meshed) (Memory-Efficient Watershed Delineation)
 * MELFP (Memory-Efficient Longest Flow Path)
 * MEFLEN (Memory-Efficient Flow Length)
 
