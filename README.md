@@ -16,7 +16,7 @@ pretest.bat
 test.bat
 ```
 
-## Benchmark tests
+## Benchmark results
 
 MEFLEN
 ![dflen_uflen_tx_benchmark](dflen_uflen_tx_benchmark.png)
