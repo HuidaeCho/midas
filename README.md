@@ -18,5 +18,10 @@ test.bat
 
 ## Benchmark results
 
-MEFLEN
+### MEFA
+
+![MEFA Graphical Abstract](https://idea.isnew.info/publications/Memory-efficient%20flow%20accumulation%20using%20a%20look-around%20approach%20and%20its%20OpenMP%20parallelization%20-%20Graphical%20abstract.png)
+
+### MEFLEN
+
 ![dflen_uflen_tx_benchmark](dflen_uflen_tx_benchmark.png)
