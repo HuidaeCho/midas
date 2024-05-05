@@ -15,3 +15,8 @@ cd meidas\windows\test
 pretest.bat
 test.bat
 ```
+
+## Benchmark tests
+
+MEFLEN
+![dflen_uflen_tx_benchmark](dflen_uflen_tx_benchmark.png)
