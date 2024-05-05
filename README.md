@@ -10,8 +10,8 @@
 ## Testing
 
 ```dos
-git clone https://github.com/HuidaeCho/meidas.git
-cd meidas\windows\test
+git clone https://github.com/HuidaeCho/midas.git
+cd midas\windows\test
 pretest.bat
 test.bat
 ```
