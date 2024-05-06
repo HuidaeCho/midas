@@ -2,14 +2,14 @@
 set PATH=..;..\lib;%PATH%
 set PROJ_LIB=..\lib
 
-mefa inputs\fdr.tif outputs\fac.tif
-mefa -l inputs\fdr.tif outputs\fac-lessmem.tif
-meshed inputs\fdr.tif inputs\outlets1000.shp cat outputs\wsheds1000.tif
-meshed -l inputs\fdr.tif inputs\outlets1000.shp cat outputs\wsheds1000-lessmem.tif
-melfp inputs\fdr.tif inputs\outlets1000.shp cat outputs\lfp1000.csv
-melfp -l inputs\fdr.tif inputs\outlets1000.shp cat outputs\lfp1000-lessmem.csv
-meflen inputs\fdr.tif outputs\dflen.tif
-meflen -L inputs\fdr.tif outputs\dflen-leastmem.tif
-meflen -u inputs\fdr.tif outputs\uflen.tif
-meflen -ul inputs\fdr.tif outputs\uflen-lessmem.tif
-meflen -uL inputs\fdr.tif outputs\uflen-leastmem.tif
+mefa inputs_TX\fdr.tif outputs_TX\fac.tif
+mefa -l inputs_TX\fdr.tif outputs_TX\fac-lessmem.tif
+meshed inputs_TX\fdr.tif inputs_TX\outlets1000.shp cat outputs_TX\wsheds1000.tif
+meshed -l inputs_TX\fdr.tif inputs_TX\outlets1000.shp cat outputs_TX\wsheds1000-lessmem.tif
+melfp inputs_TX\fdr.tif inputs_TX\outlets1000.shp cat outputs_TX\lfp1000.csv
+melfp -l inputs_TX\fdr.tif inputs_TX\outlets1000.shp cat outputs_TX\lfp1000-lessmem.csv
+meflen inputs_TX\fdr.tif outputs_TX\dflen.tif
+meflen -L inputs_TX\fdr.tif outputs_TX\dflen-leastmem.tif
+meflen -u inputs_TX\fdr.tif outputs_TX\uflen.tif
+meflen -ul inputs_TX\fdr.tif outputs_TX\uflen-lessmem.tif
+meflen -uL inputs_TX\fdr.tif outputs_TX\uflen-leastmem.tif
