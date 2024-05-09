@@ -45,18 +45,18 @@ System specifications
 * Logical processors: 24
 * Memory: 64 GiB
 * OS: Windows 11
-  * Downstream flow length
-    * Texas results (compute only)
+  * Downstream flow length (compute time only)
+    * Texas results
       * 8.2 s (24 threads)
       * 19.6 s (1 thread)
-    * CONUS results (compute only)
+    * CONUS results
       * 4.7 m (24 threads)
       * 7.3 m (1 thread)
 * OS: Linux 6.6.30
-  * Downstream flow length
-    * Texas results (compute only)
+  * Downstream flow length (compute time only)
+    * Texas results
       * 9.4 s (24 threads)
       * 20.0 s (1 thread)
-    * CONUS results (compute only)
+    * CONUS results
       * 2.0 m (24 threads)
       * 4.0 m (1 thread)
