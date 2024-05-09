@@ -30,10 +30,7 @@ System specifications
 * OS: Windows 11
 
 Citation
-* Huidae Cho, July 2023. Memory-Efficient Flow Accumulation Using a Look-Aroun
-d Approach and Its OpenMP Parallelization. Environmental Modelling & Software
-167, 105771. [doi:10.1016/j.envsoft.2023.105771](https://doi.org/10.1016/j.env
-soft.2023.105771).
+* Huidae Cho, July 2023. Memory-Efficient Flow Accumulation Using a Look-Aroun d Approach and Its OpenMP Parallelization. Environmental Modelling & Software 167, 105771. [doi:10.1016/j.envsoft.2023.105771](https://doi.org/10.1016/j.envsoft.2023.105771).
 
 ### MEFLEN
 
