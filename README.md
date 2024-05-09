@@ -1,4 +1,4 @@
-# Memory-efficient Input Drainage paths Analysis System (MIDAS)
+# Memory-Efficient I/O-Improved DEM Analysis System (MIDAS)
 
 ## Binaries for Windows
 
