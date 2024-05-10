@@ -34,7 +34,7 @@ Citation
 
 ### MEFLEN
 
-![dflen_uflen_tx_benchmark](windows/test/dflen_uflen_tx_benchmark.png)
+![image](https://github.com/HuidaeCho/midas/assets/7456117/3a67d9ec-8649-4d24-97a7-b5d3dd5115c7)
 
 System specifications
 * CPU: Intel Core i9-12900 @ 2.40GHz
