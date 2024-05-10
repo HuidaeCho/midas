@@ -7,6 +7,9 @@
 * MELFP (Memory-Efficient Longest Flow Path)
 * MEFLEN (Memory-Efficient Flow Length)
 
+Flow direction encoding in GeoTIFF:<br>
+![image](https://github.com/HuidaeCho/mefa/assets/7456117/6268b904-24a4-482e-8f6d-9ec9c4edf143)
+
 ## Testing
 
 ```dos
@@ -15,9 +18,6 @@ cd midas\windows\test
 pretest.bat
 test.bat
 ```
-
-Flow direction encoding in GeoTIFF:<br>
-![image](https://github.com/HuidaeCho/mefa/assets/7456117/6268b904-24a4-482e-8f6d-9ec9c4edf143)
 
 ## Benchmark results
 
