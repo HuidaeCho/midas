@@ -16,6 +16,9 @@ pretest.bat
 test.bat
 ```
 
+Flow direction encoding in GeoTIFF:<br>
+![image](https://github.com/HuidaeCho/mefa/assets/7456117/6268b904-24a4-482e-8f6d-9ec9c4edf143)
+
 ## Benchmark results
 
 ### MEFA
