@@ -37,7 +37,7 @@ Citation
 
 ### MESHED
 
-![image](https://github.com/HuidaeCho/midas/assets/7456117/1f4a75c3-33ed-494c-8372-e94bc8629020)
+![image](https://clawrim.isnew.info/wp-content/uploads/2024/07/meshed-flyer.png)
 
 ### MELFP
 
