@@ -35,7 +35,7 @@ LIB_OBJS=midas.o \
 	 write_lfp.o
 
 $(LIB_OBJS): CFLAGS+=-fpic -fopenmp $(GDAL_CFLAGS)
-$(LIB_NAME): LDFLAGS+=-shared -fopenmp -lm $(GDAL_LIBS)
+$(LIB_NAME): LDFLAGS+=-shared -Wl,-soname,$(LIB_NAME) -fopenmp -lm $(GDAL_LIBS)
 
 $(LIB_NAME): $(LIB_OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
