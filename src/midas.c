@@ -48,12 +48,12 @@ void guess_tracing_stack_size(struct raster_map *dir_map, int num_threads,
 }
 #endif
 
-int mefa(const char *dir_path, const char *dir_opts, const char *format,
+int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
          const char *accum_path, int use_lessmem, int compress_output,
          int num_threads)
 {
     double (*recode)(double, void *);
-    int *encoding;
+    int *enc;
     struct raster_map *dir_map, *accum_map;
     struct timeval first_time, start_time, end_time;
 
@@ -61,13 +61,13 @@ int mefa(const char *dir_path, const char *dir_opts, const char *format,
 
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
-    if (read_encoding(format, &recode, &encoding))
-        fprintf(stderr, "%s: Invalid encoding\n", format);
+    if (read_encoding(encoding, &recode, &enc))
+        fprintf(stderr, "%s: Invalid encoding\n", encoding);
     if (recode) {
         printf("Converting flow direction encoding...\n");
         if (!(dir_map =
               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, recode,
-                          encoding))) {
+                          enc))) {
             fprintf(stderr, "%s: Failed to read flow direction raster\n",
                     dir_path);
             return 1;
@@ -80,7 +80,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *format,
                 dir_path);
         return 1;
     }
-    free_encoding(encoding);
+    free_encoding(enc);
     gettimeofday(&end_time, NULL);
     printf("Input time for flow direction: %lld microsec\n",
            timeval_diff(NULL, &end_time, &start_time));
@@ -119,7 +119,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *format,
     return 0;
 }
 
-int meshed(const char *dir_path, const char *dir_opts, const char *format,
+int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
            const char *outlets_path, const char *outlets_layer,
            const char *outlets_opts, const char *id_col,
            const char *wsheds_path, const char *hier_path,
@@ -131,20 +131,20 @@ int meshed(const char *dir_path, const char *dir_opts, const char *format,
     )
 {
     double (*recode)(double, void *);
-    int *encoding;
+    int *enc;
     struct raster_map *dir_map;
     struct outlet_list *outlet_l;
     struct timeval first_time, start_time, end_time;
 
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
-    if (read_encoding(format, &recode, &encoding))
-        fprintf(stderr, "%s: Invalid encoding\n", format);
+    if (read_encoding(encoding, &recode, &enc))
+        fprintf(stderr, "%s: Invalid encoding\n", encoding);
     if (recode) {
         printf("Converting flow direction encoding...\n");
         if (!(dir_map =
               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_INT32, 0,
-                          recode, encoding))) {
+                          recode, enc))) {
             fprintf(stderr, "%s: Failed to read flow direction raster\n",
                     dir_path);
             return 1;
@@ -157,7 +157,7 @@ int meshed(const char *dir_path, const char *dir_opts, const char *format,
                 dir_path);
         return 1;
     }
-    free_encoding(encoding);
+    free_encoding(enc);
     gettimeofday(&end_time, NULL);
     printf("Input time for flow direction: %lld microsec\n",
            timeval_diff(NULL, &end_time, &start_time));
@@ -254,7 +254,7 @@ int meshed(const char *dir_path, const char *dir_opts, const char *format,
     return 0;
 }
 
-int melfp(const char *dir_path, const char *dir_opts, const char *format,
+int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
           const char *outlets_path, const char *outlets_layer,
           const char *outlets_opts, const char *id_col,
           const char *output_path, const char *oid_col, const char *lfp_name,
@@ -266,7 +266,7 @@ int melfp(const char *dir_path, const char *dir_opts, const char *format,
     )
 {
     double (*recode)(double, void *);
-    int *encoding;
+    int *enc;
     struct raster_map *dir_map;
     struct outlet_list *outlet_l;
     size_t num_cells;
@@ -274,15 +274,21 @@ int melfp(const char *dir_path, const char *dir_opts, const char *format,
 
     gettimeofday(&first_time, NULL);
 
+    if (lfp_name && use_lessmem == 1) {
+        fprintf(stderr,
+                "Forced to preserve input data for vector routing; Using use_lessmem=2\n");
+        use_lessmem = 2;
+    }
+
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
-    if (read_encoding(format, &recode, &encoding))
-        fprintf(stderr, "%s: Invalid encoding\n", format);
+    if (read_encoding(encoding, &recode, &enc))
+        fprintf(stderr, "%s: Invalid encoding\n", encoding);
     if (recode) {
         printf("Converting flow direction encoding...\n");
         if (!(dir_map =
               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, recode,
-                          encoding))) {
+                          enc))) {
             fprintf(stderr, "%s: Failed to read flow direction raster\n",
                     dir_path);
             return 1;
@@ -295,7 +301,7 @@ int melfp(const char *dir_path, const char *dir_opts, const char *format,
                 dir_path);
         return 1;
     }
-    free_encoding(encoding);
+    free_encoding(enc);
     gettimeofday(&end_time, NULL);
     printf("Input time for flow direction: %lld microsec\n",
            timeval_diff(NULL, &end_time, &start_time));

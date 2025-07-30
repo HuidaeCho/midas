@@ -168,11 +168,6 @@ int main(int argc, char *argv[])
         if (!lfp_name && !heads_name && !save_outlets)
             printf("No output vector layers specified; Not creating %s\n",
                    output_path);
-        else if (lfp_name && use_lessmem == 1) {
-            fprintf(stderr,
-                    "Forced to preserve input data for vector routing; Ignoring -P\n");
-            use_lessmem = 2;
-        }
     }
 
     if (print_usage) {
