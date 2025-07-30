@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
+from ctypes.util import find_library
 from ctypes import *
 
-lib = CDLL("/home/hcho/usr/local/src/midas/src/libmidas.so")
+lib_path = find_library("midas")
+if lib_path is None:
+    raise FileNotFoundError("Cound not find libmidas")
+lib = CDLL(lib_path)
 
 def def_c_function(lib, func_name, argtypes, restype, defaults=()):
     func = getattr(lib, func_name)
