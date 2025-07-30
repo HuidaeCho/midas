@@ -6,21 +6,19 @@
 int main(int argc, char *argv[])
 {
     int i;
-    int print_usage = 1, save_outlets = 0, find_full = 0, use_lessmem = 2;
-    double (*recode)(double, void *) = NULL;
-    int *recode_data = NULL, encoding[8];
-    char *dir_path = NULL, *dir_opts = NULL,
+    int print_usage = 1, find_full = 0, use_lessmem = 2, save_outlets = 0;
+    char *dir_path = NULL, *dir_opts = NULL, *format = NULL,
         *outlets_path = NULL, *outlets_layer = NULL, *outlets_opts = NULL,
         *id_col = NULL,
         *output_path = NULL, *oid_col = NULL,
         *lfp_name = NULL, *heads_name = NULL, *coors_path = NULL;
     int num_threads = 0;
-    struct raster_map *dir_map;
-    struct outlet_list *outlet_l;
-    size_t num_cells;
-    struct timeval first_time, start_time, end_time;
 
-    gettimeofday(&first_time, NULL);
+#ifdef LOOP_THEN_TASK
+    int tracing_stack_size;
+
+    read_tracing_stack_size(&tracing_stack_size);
+#endif
 
     for (i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
@@ -49,39 +47,7 @@ int main(int argc, char *argv[])
                         print_usage = 2;
                         break;
                     }
-                    if (strcmp(argv[++i], "power2") == 0) {
-                        recode = NULL;
-                        recode_data = NULL;
-                        break;
-                    }
-                    else if (strcmp(argv[i], "taudem") == 0) {
-                        int k;
-
-                        for (k = 1; k < 9; k++)
-                            encoding[k % 8] = 9 - k;
-                    }
-                    else if (strcmp(argv[i], "45degree") == 0) {
-                        int k;
-
-                        for (k = 0; k < 8; k++)
-                            encoding[k] = 8 - k;
-                    }
-                    else if (strcmp(argv[i], "degree") == 0) {
-                        recode = recode_degree;
-                        recode_data = NULL;
-                        break;
-                    }
-                    else if (sscanf
-                             (argv[i], "%d,%d,%d,%d,%d,%d,%d,%d",
-                              &encoding[0], &encoding[1], &encoding[2],
-                              &encoding[3], &encoding[4], &encoding[5],
-                              &encoding[6], &encoding[7]) != 8) {
-                        fprintf(stderr, "%s: Invalid encoding\n", argv[i]);
-                        print_usage = 2;
-                        break;
-                    }
-                    recode = recode_encoding;
-                    recode_data = encoding;
+                    format = argv[++i];
                     break;
                 case 'D':
                     if (i == argc - 1) {
@@ -251,144 +217,15 @@ int main(int argc, char *argv[])
 
     init_midas(&num_threads);
 
-    printf("Reading flow direction raster <%s>...\n", dir_path);
-    gettimeofday(&start_time, NULL);
-    if (recode) {
-        printf("Converting flow direction encoding...\n");
-        if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, recode,
-                          recode_data))) {
-            fprintf(stderr, "%s: Failed to read flow direction raster\n",
-                    dir_path);
-            exit(EXIT_FAILURE);
-        }
-    }
-    else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, NULL,
-                           NULL))) {
-        fprintf(stderr, "%s: Failed to read flow direction raster\n",
-                dir_path);
-        exit(EXIT_FAILURE);
-    }
-    gettimeofday(&end_time, NULL);
-    printf("Input time for flow direction: %lld microsec\n",
-           timeval_diff(NULL, &end_time, &start_time));
-
-    printf("Reading outlets <%s>...\n", outlets_path);
-    gettimeofday(&start_time, NULL);
-    if (!(outlet_l =
-          read_outlets(outlets_path, outlets_layer, outlets_opts, id_col,
-                       dir_map, 0, 1 + find_full))) {
-        fprintf(stderr, "%s: Failed to read outlets\n", outlets_path);
-        exit(EXIT_FAILURE);
-    }
-    gettimeofday(&end_time, NULL);
-    printf("Input time for outlets: %lld microsec\n",
-           timeval_diff(NULL, &end_time, &start_time));
-
-    num_cells = (size_t)dir_map->nrows * dir_map->ncols;
-    printf("Number of cells: %zu\n", num_cells);
-    printf("Number of outlets: %d\n", outlet_l->n);
-
-    if (save_outlets) {
-        printf("Writing outlets...\n");
-        gettimeofday(&start_time, NULL);
-        if (write_outlets(output_path, outlet_l) > 0) {
-            fprintf(stderr, "%s: Failed to write outlets file\n",
-                    output_path);
-            free_raster(dir_map);
-            free_outlet_list(outlet_l);
-            exit(EXIT_FAILURE);
-        }
-        gettimeofday(&end_time, NULL);
-        printf("Output time for outlets: %lld microsec\n",
-               timeval_diff(NULL, &end_time, &start_time));
-    }
-    else {
-        int append_layer = 0;
-        int num_lfp = 0;
-
+    if (melfp(dir_path, dir_opts, format,
+              outlets_path, outlets_layer, outlets_opts, id_col,
+              output_path, oid_col, lfp_name, heads_name, coors_path,
+              find_full, use_lessmem, save_outlets, num_threads
 #ifdef LOOP_THEN_TASK
-        guess_tracing_stack_size(dir_map, num_threads);
+              , tracing_stack_size
 #endif
-
-        printf("Finding longest flow paths...\n");
-        gettimeofday(&start_time, NULL);
-        lfp(dir_map, outlet_l, find_full, use_lessmem);
-        gettimeofday(&end_time, NULL);
-        printf
-            ("Computation time for longest flow paths: %lld microsec\n",
-             timeval_diff(NULL, &end_time, &start_time));
-
-        for (i = 0; i < outlet_l->n; i++)
-            num_lfp += outlet_l->head_pl[i].n;
-        printf("Number of longest flow paths found: %d\n", num_lfp);
-
-        if (lfp_name) {
-            printf("Writing longest flow path lines <%s>...\n", output_path);
-            gettimeofday(&start_time, NULL);
-            if (write_lfp
-                (output_path, lfp_name, oid_col, outlet_l, dir_map,
-                 append_layer) > 0) {
-                fprintf(stderr,
-                        "%s: Failed to write longest flow path lines\n",
-                        output_path);
-                free_raster(dir_map);
-                free_outlet_list(outlet_l);
-                exit(EXIT_FAILURE);
-            }
-            gettimeofday(&end_time, NULL);
-            printf("Output time for longest flow path lines: %lld microsec\n",
-                   timeval_diff(NULL, &end_time, &start_time));
-            append_layer = 1;
-        }
-
-        if (heads_name) {
-            printf("Writing longest flow path heads <%s>...\n", output_path);
-            gettimeofday(&start_time, NULL);
-            if (write_lfp_heads
-                (output_path, heads_name, oid_col, outlet_l, dir_map,
-                 append_layer) > 0) {
-                fprintf(stderr,
-                        "%s: Failed to write longest flow path heads\n",
-                        output_path);
-                free_raster(dir_map);
-                free_outlet_list(outlet_l);
-                exit(EXIT_FAILURE);
-            }
-            gettimeofday(&end_time, NULL);
-            printf("Output time for longest flow path heads: %lld microsec\n",
-                   timeval_diff(NULL, &end_time, &start_time));
-            append_layer = 1;
-        }
-
-        if (coors_path) {
-            printf
-                ("Writing longest flow path head coordinates <%s>...\n",
-                 coors_path);
-            gettimeofday(&start_time, NULL);
-            if (write_lfp_head_coors(coors_path, oid_col, outlet_l, dir_map) >
-                0) {
-                fprintf(stderr,
-                        "%s: Failed to write longest flow path head coordinates\n",
-                        coors_path);
-                free_raster(dir_map);
-                free_outlet_list(outlet_l);
-                exit(EXIT_FAILURE);
-            }
-            gettimeofday(&end_time, NULL);
-            printf
-                ("Output time for longest flow path head coordinates: %lld microsec\n",
-                 timeval_diff(NULL, &end_time, &start_time));
-        }
-    }
-
-    free_raster(dir_map);
-    free_outlet_list(outlet_l);
-
-    gettimeofday(&end_time, NULL);
-    printf("Total elapsed time: %lld microsec\n",
-           timeval_diff(NULL, &end_time, &first_time));
+        ))
+        exit(EXIT_FAILURE);
 
     exit(EXIT_SUCCESS);
 }

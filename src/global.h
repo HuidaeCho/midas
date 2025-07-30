@@ -59,27 +59,37 @@ struct shed_hier
     int *self, *up, *down;
 };
 
-#ifdef LOOP_THEN_TASK
-#ifdef _MIDAS_C_
-#define GLOBAL
-#else
-#define GLOBAL extern
-#endif
-
-GLOBAL int tracing_stack_size;
-#endif
-
 /* midas.c */
 void init_midas(int *);
 
 #ifdef LOOP_THEN_TASK
-void guess_tracing_stack_size(struct raster_map *, int);
+void read_tracing_stack_size(int *);
+void guess_tracing_stack_size(struct raster_map *, int, int *);
 #endif
+int mefa(const char *, const char *, const char *, const char *, int, int,
+         int);
+int meshed(const char *, const char *, const char *,
+           const char *, const char *, const char *, const char *,
+           const char *, const char *, int, int, int, int
+#ifdef LOOP_THEN_TASK
+           , int
+#endif
+    );
+int melfp(const char *, const char *, const char *, const char *,
+          const char *, const char *, const char *, const char *,
+          const char *, const char *, const char *, const char *, int, int,
+          int, int
+#ifdef LOOP_THEN_TASK
+          , int
+#endif
+    );
 
 /* timeval_diff.c */
 long long timeval_diff(struct timeval *, struct timeval *, struct timeval *);
 
 /* recode.c */
+int read_encoding(const char *, double (**)(double, void *), int **);
+void free_encoding(int *);
 double recode_encoding(double, void *);
 double recode_degree(double, void *);
 
@@ -113,13 +123,25 @@ int write_outlets(const char *, struct outlet_list *);
  * MESHED only
  ******************************************************************************/
 /* delineate.c */
-void delineate(struct raster_map *, struct outlet_list *, int);
+void delineate(struct raster_map *, struct outlet_list *, int
+#ifdef LOOP_THEN_TASK
+               , int
+#endif
+    );
 
 /* delineate_lessmem.c */
-void delineate_lessmem(struct raster_map *, struct outlet_list *);
+void delineate_lessmem(struct raster_map *, struct outlet_list *
+#ifdef LOOP_THEN_TASK
+                       , int
+#endif
+    );
 
 /* delineate_moremem.c */
-void delineate_moremem(struct raster_map *, struct outlet_list *);
+void delineate_moremem(struct raster_map *, struct outlet_list *
+#ifdef LOOP_THEN_TASK
+                       , int
+#endif
+    );
 
 /* shed_hier.c */
 struct shed_hier *analyze_shed_hier(struct raster_map *,
@@ -135,14 +157,25 @@ void reset_point_list(struct point_list *);
 void free_point_list(struct point_list *);
 void add_point(struct point_list *, int, int);
 
-/* lfp.c */
-void lfp(struct raster_map *, struct outlet_list *, int, int);
+void lfp(struct raster_map *, struct outlet_list *, int, int
+#ifdef LOOP_THEN_TASK
+         , int
+#endif
+    );
 
 /* lfp_lessmem.c */
-void lfp_lessmem(struct raster_map *, struct outlet_list *, int, int);
+void lfp_lessmem(struct raster_map *, struct outlet_list *, int, int
+#ifdef LOOP_THEN_TASK
+                 , int
+#endif
+    );
 
 /* lfp_moremem.c */
-void lfp_moremem(struct raster_map *, struct outlet_list *, int);
+void lfp_moremem(struct raster_map *, struct outlet_list *, int
+#ifdef LOOP_THEN_TASK
+                 , int
+#endif
+    );
 
 /* write_lfp.c */
 int write_lfp(const char *, const char *, const char *, struct outlet_list *,

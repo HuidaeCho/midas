@@ -132,7 +132,11 @@ static int nrows, ncols;
 
 static TRACE_UP_RETURN trace_up(struct raster_map *, int, int, int, int,
                                 int *, int *, double *, struct point_list *,
-                                struct cell_stack *);
+                                struct cell_stack *
+#ifdef LOOP_THEN_TASK
+                                , int
+#endif
+    );
 static void find_full_lfp(struct raster_map *, struct outlet_list *);
 static void init_up_stack(struct cell_stack *);
 static void free_up_stack(struct cell_stack *);
@@ -143,6 +147,9 @@ void LFP(struct raster_map *dir_map, struct outlet_list *outlet_l,
          int find_full
 #ifdef USE_LESS_MEMORY
          , int preserve_dir
+#endif
+#ifdef LOOP_THEN_TASK
+         , int tracing_stack_size
 #endif
     )
 {
@@ -210,7 +217,11 @@ void LFP(struct raster_map *dir_map, struct outlet_list *outlet_l,
 #endif
                trace_up(dir_map, outlet_l->row[i], outlet_l->col[i], 0, 0,
                         &outlet_l->northo[i], &outlet_l->ndia[i],
-                        &outlet_l->lflen[i], &outlet_l->head_pl[i], up_stack)
+                        &outlet_l->lflen[i], &outlet_l->head_pl[i], up_stack
+#ifdef LOOP_THEN_TASK
+                        , tracing_stack_size
+#endif
+               )
 #ifdef LOOP_THEN_TASK
             ) {
 #ifdef _MSC_VER
@@ -248,8 +259,11 @@ void LFP(struct raster_map *dir_map, struct outlet_list *outlet_l,
                          * branching node */
                         if (trace_up
                             (dir_map, row, col, down_northo, down_ndia,
-                             &northo, &ndia, &lflen, &head_pl,
-                             task_up_stack)) {
+                             &northo, &ndia, &lflen, &head_pl, task_up_stack
+#ifdef LOOP_THEN_TASK
+                             , tracing_stack_size
+#endif
+                            )) {
                             while (task_up_stack->n) {
                                 struct cell task_up;
 
@@ -338,7 +352,11 @@ static TRACE_UP_RETURN trace_up(struct raster_map *dir_map, int row, int col,
                                 int down_northo, int down_ndia, int *northo,
                                 int *ndia, double *lflen,
                                 struct point_list *head_pl,
-                                struct cell_stack *up_stack)
+                                struct cell_stack *up_stack
+#ifdef LOOP_THEN_TASK
+                                , int tracing_stack_size
+#endif
+    )
 {
 #ifdef DONT_USE_TCO
     do {
@@ -448,7 +466,11 @@ static TRACE_UP_RETURN trace_up(struct raster_map *dir_map, int row, int col,
     return
 #endif
         trace_up(dir_map, next_row, next_col, down_northo + ortho,
-                 down_ndia + dia, northo, ndia, lflen, head_pl, up_stack);
+                 down_ndia + dia, northo, ndia, lflen, head_pl, up_stack
+#ifdef LOOP_THEN_TASK
+                 , tracing_stack_size
+#endif
+        );
 #endif
 }
 
