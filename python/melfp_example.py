@@ -19,7 +19,7 @@ def def_c_function(lib, func_name, argtypes, restype, defaults=()):
 
     return wrapped
 
-def byte(s):
+def b(s):
     return s.encode() if s else None
 
 c_init_midas = def_c_function(
@@ -87,18 +87,18 @@ def melfp(dir_path,
           save_outlets=False,
           num_threads=0,
           tracing_stack_size=3072):
-    return c_melfp(byte(dir_path),
-                   byte(dir_opts),
-                   byte(encoding),
-                   byte(outlets_path),
-                   byte(outlets_layer),
-                   byte(outlets_opts),
-                   byte(id_col),
-                   byte(output_path),
-                   byte(oid_col),
-                   byte(lfp_name),
-                   byte(heads_name),
-                   byte(coors_path),
+    return c_melfp(b(dir_path),
+                   b(dir_opts),
+                   b(encoding),
+                   b(outlets_path),
+                   b(outlets_layer),
+                   b(outlets_opts),
+                   b(id_col),
+                   b(output_path),
+                   b(oid_col),
+                   b(lfp_name),
+                   b(heads_name),
+                   b(coors_path),
                    find_full,
                    c_int(use_lessmem),
                    save_outlets,
