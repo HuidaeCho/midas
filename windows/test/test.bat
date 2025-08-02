@@ -1,6 +1,5 @@
 @echo off
-set PATH=..;..\lib;%PATH%
-set PROJ_LIB=..\lib
+set PATH=..\mingw;%PATH%
 
 mefa inputs_TX\fdr.tif outputs_TX\fac.tif
 mefa -l inputs_TX\fdr.tif outputs_TX\fac-lessmem.tif
