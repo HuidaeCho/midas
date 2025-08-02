@@ -104,7 +104,7 @@ set PATH=C:\opt\midas\src\build\dist;%PATH%
 mefa
 ```
 
-## Building on Windows using MinGW GCC
+## Building on Windows using MinGW
 
 1. Install [Git for Windows](https://gitforwindows.org/)
 2. Install [Miniconda](https://www.anaconda.com/download/success)
