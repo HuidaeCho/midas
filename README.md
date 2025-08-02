@@ -8,6 +8,84 @@ Predefined flow direction encodings in GeoTIFF: power2 (default, r.terraflow, Ar
 
 Custom flow direction encoding is also possible by passing `-e E,SE,S,SW,W,NW,N,NE` (e.g., 1,8,7,6,5,4,3,2 for taudem).
 
+## Building on Windows
+
+1. Install [Visual Studio Community Edition](https://visualstudio.microsoft.com/vs/community/). Select these two components:
+   * MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
+   * Windows 11 SDK (10.0.26100.0)
+2. Install [Git for Windows](https://gitforwindows.org/)
+3. Install [Miniconda](https://www.anaconda.com/download/success)
+```cmd
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+mkdir C:\opt
+Miniconda3-latest-Windows-x86_64.exe /S /D=C:\opt\miniconda
+C:\opt\miniconda\condabin\conda.bat init
+```
+4. Start Developer Command Prompt for VS 2022
+5. Setup Conda for MIDAS build
+```cmd
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+conda create -n midas cmake libgdal
+conda activate midas
+```
+6. Download the source code
+```cmd
+cd \opt
+git clone git@github.com:HuidaeCho/midas.git
+cd midas/src
+```
+7. Build MIDAS
+```cmd
+mkdir build
+cd build
+cmake .. > cmake.log 2>&1
+msbuild midas.sln -p:Configuration=Release > msbuild.log 2>&1
+```
+8. Run MIDAS
+```cmd
+set PATH=C:\opt\midas\src\build\dist;%PATH%
+mefa
+```
+
+## Building on Linux
+
+1. Install Miniconda
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod a+x Miniconda3-latest-Linux-x86_64.sh
+mkdir ~/opt
+./Miniconda3-latest-Linux-x86_64.sh -b -u -p ~/opt/miniconda
+~/opt/miniconda/bin/conda init
+. ~/.bashrc
+```
+2. Setup Conda for MIDAS build
+```bash
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+conda create -n midas git cmake make gcc gdal
+conda activate midas
+```
+3. Download the source code
+```bash
+cd ~/opt
+git clone git@github.com:HuidaeCho/midas.git
+cd midas/src
+```
+4. Build MIDAS
+```bash
+mkdir build
+cd build
+
+# LD_LIBRARY_PATH=$CONDA_PREFIX/lib and -DCMAKE_PREFIX_PATH=$CONDA_PREFIX to avoid system libraries
+LD_LIBRARY_PATH=$CONDA_PREFIX/lib cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX &> cmake.log
+make &> make.log
+```
+5. Run MIDAS
+```bash
+./mefa
+```
+
 ## Binaries for Windows
 
 * [MEFA](https://github.com/HuidaeCho/mefa) (Memory-Efficient Flow Accumulation)
