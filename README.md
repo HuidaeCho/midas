@@ -22,8 +22,8 @@ C:\opt\miniconda\condabin\conda.bat init
 ```cmd
 conda config --add channels conda-forge
 conda config --set channel_priority strict
-conda create -n midas libgdal
-conda activate midas
+conda create -n midas_msvc libgdal
+conda activate midas_msvc
 ```
 4. Download the source code and binaries
 ```cmd
@@ -36,7 +36,7 @@ set PATH=C:\opt\midas\windows\msvc;%PATH%
 mefa
 ```
 
-## Installing on Windows from MinGW binaries
+## Installing on Windows from MinGW GCC binaries
 
 1. Install [Git for Windows](https://gitforwindows.org/)
 2. Install [Miniconda](https://www.anaconda.com/download/success)
@@ -104,7 +104,7 @@ set PATH=C:\opt\midas\src\build\dist;%PATH%
 mefa
 ```
 
-## Building on Windows using MinGW
+## Building on Windows using MinGW GCC
 
 1. Install [Git for Windows](https://gitforwindows.org/)
 2. Install [Miniconda](https://www.anaconda.com/download/success)
@@ -178,14 +178,125 @@ make &> make.log
 ./mefa
 ```
 
-## Testing on Windows using TX data
+## Testing MSVC binaries on Windows using TX data
 
 ```dos
 git clone https://github.com/HuidaeCho/midas.git
 cd midas\windows\test
 pretest.bat
-test.bat
+test_msvc.bat
 ```
+
+## Testing MinGW GCC binaries on Windows using TX data
+
+```dos
+git clone https://github.com/HuidaeCho/midas.git
+cd midas\windows\test
+pretest.bat
+test_mingw.bat
+```
+
+## Benchmark results of MSVC vs. MinGW GCC vs. WSL GCC vs. Linux GCC binaries using CONUS data
+
+System specifications
+* Hardware and OS
+  * ThinkPad X1 Carbon Gen 11
+    * Windows 11 for MSVC and MinGW
+    * WSL Linux 5.15.167.4-microsoft-standard-WSL2 for WSL GCC
+  * ThinkPad X1 Yoga Gen 8 (identical hardware specifications)
+    * Slackware CURRENT Linux 6.12.17 for Linux GCC
+* CPU: Intel Core i7-1370P @ 5.20 GHz
+* Cores: 14
+* Logical processors: 20
+* Memory: 64 GiB
+
+MSVC
+```
+> melfp.exe inputs\fdr.tif inputs\outlets515152.shp cat msvc.gpkg lfpid -c msvc.csv
+No output vector layers specified; Not creating msvc.gpkg
+Using 20 threads...
+Reading flow direction raster <inputs\fdr.tif>...
+Input time for flow direction: 9198000 microsec
+Reading outlets <inputs\outlets515152.shp>...
+Input time for outlets: 17007000 microsec
+Number of cells: 14998630400
+Number of outlets: 515152
+Tracing stack size for loop-then-task: 3072
+Finding longest flow paths...
+Computation time for longest flow paths: 622248000 microsec
+Number of longest flow paths found: 521946
+Writing longest flow path head coordinates <msvc.csv>...
+Output time for longest flow path head coordinates: 1980000 microsec
+Total elapsed time: 657635000 microsec
+```
+* Compute time: 622.248000 sec
+* Total time: 657.635000 sec
+
+MinGW GCC
+```
+> melfp.exe inputs\fdr.tif inputs\outlets515152.shp cat mingw.gpkg lfpid -c mingw.csv
+No output vector layers specified; Not creating mingw.gpkg
+Using 20 threads...
+Reading flow direction raster <inputs\fdr.tif>...
+Input time for flow direction: 6823994 microsec
+Reading outlets <inputs\outlets515152.shp>...
+Input time for outlets: 16805443 microsec
+Number of cells: 14998630400
+Number of outlets: 515152
+Tracing stack size for loop-then-task: 3072
+Finding longest flow paths...
+Computation time for longest flow paths: 120324302 microsec
+Number of longest flow paths found: 521946
+Writing longest flow path head coordinates <mingw.csv>...
+Output time for longest flow path head coordinates: 2097205 microsec
+Total elapsed time: 153459228 microsec
+```
+* Compute time: 120.324302 sec
+* Total time: 153.459228 sec
+
+WSL GCC
+```
+$ melfp inputs/fdr.tif inputs/outlets515152.shp cat wsl.gpkg lfpid -c wsl.csv
+No output vector layers specified; Not creating wsl.gpkg
+Using 20 threads...
+Reading flow direction raster <inputs/fdr.tif>...
+Input time for flow direction: 7537860 microsec
+Reading outlets <inputs/outlets515152.shp>...
+Input time for outlets: 223358 microsec
+Number of cells: 14998630400
+Number of outlets: 515152
+Tracing stack size for loop-then-task: 3072
+Finding longest flow paths...
+Computation time for longest flow paths: 38734223 microsec
+Number of longest flow paths found: 521946
+Writing longest flow path head coordinates <wsl.csv>...
+Output time for longest flow path head coordinates: 426007 microsec
+Total elapsed time: 47034415 microsec
+```
+* Compute time: 38.734223 sec
+* Total time: 47.034415 sec
+
+Linux GCC
+```
+$ melfp inputs/fdr.tif inputs/outlets515152.shp cat linux.gpkg lfpid -c linux.csv
+No output vector layers specified; Not creating linux.gpkg
+Using 20 threads...
+Reading flow direction raster <inputs/fdr.tif>...
+Input time for flow direction: 1310629 microsec
+Reading outlets <inputs/outlets515152.shp>...
+Input time for outlets: 174350 microsec
+Number of cells: 14998630400
+Number of outlets: 515152
+Tracing stack size for loop-then-task: 3072
+Finding longest flow paths...
+Computation time for longest flow paths: 21766454 microsec
+Number of longest flow paths found: 521946
+Writing longest flow path head coordinates <linux.csv>...
+Output time for longest flow path head coordinates: 398142 microsec
+Total elapsed time: 24136021 microsec
+```
+* Compute time: 21.766454 sec
+* Total time: 24.136021 sec
 
 ## Benchmark results
 
