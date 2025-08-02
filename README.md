@@ -229,7 +229,8 @@ Writing longest flow path head coordinates <msvc.csv>...
 Output time for longest flow path head coordinates: 1980000 microsec
 Total elapsed time: 657635000 microsec
 ```
-* Compute time: 622.248000 sec
+* Computation time: 622.248000 sec
+* I/O time: 35.387000 sec
 * Total time: 657.635000 sec
 
 MinGW GCC
@@ -251,7 +252,8 @@ Writing longest flow path head coordinates <mingw.csv>...
 Output time for longest flow path head coordinates: 2097205 microsec
 Total elapsed time: 153459228 microsec
 ```
-* Compute time: 120.324302 sec
+* Computation time: 120.324302 sec
+* I/O time: 33.13493 sec
 * Total time: 153.459228 sec
 
 WSL GCC
@@ -273,7 +275,8 @@ Writing longest flow path head coordinates <wsl.csv>...
 Output time for longest flow path head coordinates: 426007 microsec
 Total elapsed time: 47034415 microsec
 ```
-* Compute time: 38.734223 sec
+* Computation time: 38.734223 sec
+* I/O time: 8.300192 sec
 * Total time: 47.034415 sec
 
 Linux GCC
@@ -295,8 +298,15 @@ Writing longest flow path head coordinates <linux.csv>...
 Output time for longest flow path head coordinates: 398142 microsec
 Total elapsed time: 24136021 microsec
 ```
-* Compute time: 21.766454 sec
+* Computation time: 21.766454 sec
+* I/O time: 2.369567 sec
 * Total time: 24.136021 sec
+
+Ranking by computation time
+1. Linux GCC
+2. WSL GCC (1.78x slower than Linux GCC)
+3. MinGW GCC (5.53x slower than Linux GCC)
+4. MSVC (28.59x slower than Linux GCC)
 
 ## Benchmark results
 
@@ -332,7 +342,7 @@ System specifications
 * Logical processors: 24
 * Memory: 64 GiB
 * OS: Windows 11
-  * Downstream flow length (compute time only)
+  * Downstream flow length (computation time only)
     * Texas results
       * 8.2 s (24 threads)
       * 19.6 s (1 thread)
@@ -340,7 +350,7 @@ System specifications
       * 4.7 m (24 threads)
       * 7.3 m (1 thread)
 * OS: Linux 6.6.30
-  * Downstream flow length (compute time only)
+  * Downstream flow length (computation time only)
     * Texas results
       * 9.4 s (24 threads)
       * 20.0 s (1 thread)
