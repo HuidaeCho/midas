@@ -1,5 +1,25 @@
 # Memory-Efficient I/O-Improved Drainage Analysis System (MIDAS)
 
+<!--ts-->
+  * [Installing on Windows from MSVC binaries](#installing-on-windows-from-msvc-binaries)
+  * [Installing on Windows from MinGW GCC binaries](#installing-on-windows-from-mingw-gcc-binaries)
+  * [Building on Windows using MSVC](#building-on-windows-using-msvc)
+  * [Building on Windows using MinGW GCC](#building-on-windows-using-mingw-gcc)
+  * [Building on Linux](#building-on-linux)
+  * [Testing MSVC binaries on Windows using TX data](#testing-msvc-binaries-on-windows-using-tx-data)
+  * [Testing MinGW GCC binaries on Windows using TX data](#testing-mingw-gcc-binaries-on-windows-using-tx-data)
+  * [Benchmark results of MSVC vs. MinGW GCC vs. WSL GCC vs. Linux GCC binaries using CONUS data](#benchmark-results-of-msvc-vs-mingw-gcc-vs-wsl-gcc-vs-linux-gcc-binaries-using-conus-data)
+  * [Benchmark results](#benchmark-results)
+    * [MEFA](#mefa)
+    * [MESHED](#meshed)
+    * [MELFP](#melfp)
+    * [MEFLEN](#meflen)
+
+<!-- Created by https://github.com/ekalinin/github-markdown-toc -->
+<!-- Added by: hcho, at: Sat Aug  2 16:08:17 MDT 2025 -->
+
+<!--te-->
+
 Predefined flow direction encodings in GeoTIFF: power2 (default, r.terraflow, ArcGIS), taudem (d8flowdir), 45degree (r.watershed), degree<br>
 ![image](https://github.com/user-attachments/assets/990f0530-fded-4ee5-bfbb-85056a50ca1c)
 ![image](https://github.com/user-attachments/assets/a02dfc15-a825-4210-82c4-4c9296dafadc)
