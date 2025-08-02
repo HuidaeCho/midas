@@ -10,6 +10,59 @@ Custom flow direction encoding is also possible by passing `-e E,SE,S,SW,W,NW,N,
 
 ## Installing on Windows from MSVC binaries
 
+1. Install [Git for Windows](https://gitforwindows.org/)
+2. Install [Miniconda](https://www.anaconda.com/download/success)
+```cmd
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+mkdir C:\opt
+Miniconda3-latest-Windows-x86_64.exe /S /D=C:\opt\miniconda
+C:\opt\miniconda\condabin\conda.bat init
+```
+3. Setup Conda for MIDAS run
+```cmd
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+conda create -n midas libgdal
+conda activate midas
+```
+4. Download the source code and binaries
+```cmd
+cd \opt
+git clone https://github.com/HuidaeCho/midas.git
+```
+5. Run MIDAS (add `C:\opt\midas\windows\msvc` to your `PATH`)
+```cmd
+set PATH=C:\opt\midas\windows\msvc;%PATH%
+mefa
+```
+
+## Installing on Windows from MinGW binaries
+
+1. Install [Git for Windows](https://gitforwindows.org/)
+2. Install [Miniconda](https://www.anaconda.com/download/success)
+```cmd
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+mkdir C:\opt
+Miniconda3-latest-Windows-x86_64.exe /S /D=C:\opt\miniconda
+C:\opt\miniconda\condabin\conda.bat init
+```
+3. Setup Conda for MIDAS run
+```cmd
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+conda create -n midas_mingw libgcc libgdal
+conda activate midas_mingw
+```
+4. Download the source code and binaries
+```cmd
+cd \opt
+git clone https://github.com/HuidaeCho/midas.git
+```
+5. Run MIDAS (add `C:\opt\midas\windows\mingw` to your `PATH`)
+```cmd
+set PATH=C:\opt\midas\windows\mingw;%PATH%
+mefa
+```
 
 ## Building on Windows using MSVC
 
@@ -45,7 +98,7 @@ cd build
 cmake .. > cmake.log 2>&1
 msbuild midas.sln -p:Configuration=Release > msbuild.log 2>&1
 ```
-8. Run MIDAS
+8. Run MIDAS (add `C:\opt\midas\src\build\dist` to your `PATH`)
 ```cmd
 set PATH=C:\opt\midas\src\build\dist;%PATH%
 mefa
@@ -65,8 +118,8 @@ C:\opt\miniconda\condabin\conda.bat init
 ```cmd
 conda config --add channels conda-forge
 conda config --set channel_priority strict
-conda create -n midas cmake make gcc binutils libgdal
-conda activate midas
+conda create -n midas_mingw cmake make gcc binutils libgdal
+conda activate midas_mingw
 ```
 4. Download the source code
 ```cmd
@@ -81,7 +134,7 @@ cd build
 cmake .. -G "MinGW Makefiles" > cmake.log 2>&1
 make > make.log 2>&1
 ```
-6. Run MIDAS
+6. Run MIDAS (add `C:\opt\midas\src\build\dist` to your `PATH`)
 ```cmd
 set PATH=C:\opt\midas\src\build\dist;%PATH%
 mefa
