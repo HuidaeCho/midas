@@ -8,7 +8,7 @@ Predefined flow direction encodings in GeoTIFF: power2 (default, r.terraflow, Ar
 
 Custom flow direction encoding is also possible by passing `-e E,SE,S,SW,W,NW,N,NE` (e.g., 1,8,7,6,5,4,3,2 for taudem).
 
-## Building on Windows
+## Building on Windows using MSVC
 
 1. Install [Visual Studio Community Edition](https://visualstudio.microsoft.com/vs/community/). Select these two components:
    * MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
@@ -43,6 +43,42 @@ cmake .. > cmake.log 2>&1
 msbuild midas.sln -p:Configuration=Release > msbuild.log 2>&1
 ```
 8. Run MIDAS
+```cmd
+set PATH=C:\opt\midas\src\build\dist;%PATH%
+mefa
+```
+
+## Building on Windows using MinGW GCC
+
+1. Install [Git for Windows](https://gitforwindows.org/)
+2. Install [Miniconda](https://www.anaconda.com/download/success)
+```cmd
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+mkdir C:\opt
+Miniconda3-latest-Windows-x86_64.exe /S /D=C:\opt\miniconda
+C:\opt\miniconda\condabin\conda.bat init
+```
+3. Setup Conda for MIDAS build
+```cmd
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+conda create -n midas cmake make gcc binutils libgdal
+conda activate midas
+```
+4. Download the source code
+```cmd
+cd \opt
+git clone git@github.com:HuidaeCho/midas.git
+cd midas/src
+```
+5. Build MIDAS
+```cmd
+mkdir build
+cd build
+cmake .. -G "MinGW Makefiles" > cmake.log 2>&1
+make > make.log 2>&1
+```
+6. Run MIDAS
 ```cmd
 set PATH=C:\opt\midas\src\build\dist;%PATH%
 mefa
