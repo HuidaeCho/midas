@@ -304,9 +304,9 @@ Total elapsed time: 24136021 microsec
 
 Ranking by computation time
 1. Linux GCC
-2. WSL GCC (1.78x slower than Linux GCC)
-3. MinGW GCC (5.53x slower than Linux GCC)
-4. MSVC (28.59x slower than Linux GCC)
+2. WSL GCC: 1.78x slower than Linux GCC
+3. MinGW GCC: 5.53x slower than Linux GCC
+4. MSVC: 28.59x slower than Linux GCC
 
 ## Benchmark results
 
