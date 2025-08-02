@@ -302,7 +302,7 @@ Total elapsed time: 24136021 microsec
 * I/O time: 2.369567 sec
 * Total time: 24.136021 sec
 
-Ranking by computation time
+Computation time ranking
 1. Linux GCC: fastest baseline
 2. WSL GCC: 1.78x slower than Linux GCC
 3. MinGW GCC: 5.53x slower than Linux GCC
