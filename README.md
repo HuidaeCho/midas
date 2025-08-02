@@ -88,7 +88,7 @@ conda activate midas
 6. Download the source code
 ```cmd
 cd \opt
-git clone git@github.com:HuidaeCho/midas.git
+git clone https://github.com/HuidaeCho/midas.git
 cd midas/src
 ```
 7. Build MIDAS
@@ -124,7 +124,7 @@ conda activate midas_mingw
 4. Download the source code
 ```cmd
 cd \opt
-git clone git@github.com:HuidaeCho/midas.git
+git clone https://github.com/HuidaeCho/midas.git
 cd midas/src
 ```
 5. Build MIDAS
@@ -161,7 +161,7 @@ conda activate midas
 3. Download the source code
 ```bash
 cd ~/opt
-git clone git@github.com:HuidaeCho/midas.git
+git clone https://github.com/HuidaeCho/midas.git
 cd midas/src
 ```
 4. Build MIDAS
@@ -178,14 +178,7 @@ make &> make.log
 ./mefa
 ```
 
-## Binaries for Windows
-
-* [MEFA](https://github.com/HuidaeCho/mefa) (Memory-Efficient Flow Accumulation)
-* [MESHED](https://github.com/HuidaeCho/meshed) (Memory-Efficient Watershed Delineation)
-* [MELFP](https://github.com/HuidaeCho/melfp) (Memory-Efficient Longest Flow Path)
-* MEFLEN (Memory-Efficient Flow Length)
-
-## Testing
+## Testing on Windows using TX data
 
 ```dos
 git clone https://github.com/HuidaeCho/midas.git

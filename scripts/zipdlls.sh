@@ -2,16 +2,15 @@
 # run this script from windows in WSL
 for cc in msvc mingw; do
 	lib=lib_$cc
+	env=midas_$cc
 	[ -d $lib ] && rm -rf $lib
 	mkdir $lib
 
 	case $cc in
 	msvc)
-		env=midas
 		dll=$cc/midas.dll
 		;;
 	mingw)
-		env=midas_$cc
 		dll=$cc/libmidas.dll
 		;;
 	esac
