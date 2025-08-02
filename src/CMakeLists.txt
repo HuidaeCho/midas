@@ -73,12 +73,31 @@ endforeach()
 
 set(DIST_DIR ${CMAKE_BINARY_DIR}/dist)
 
-add_custom_target(
-  copy_dist ALL
-  DEPENDS midas mefa meshed melfp
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}
-  COMMAND
-    ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:midas>
-    $<TARGET_FILE:mefa> $<TARGET_FILE:meshed> $<TARGET_FILE:melfp>
-    $<TARGET_LINKER_FILE:midas> ${CMAKE_CURRENT_SOURCE_DIR}/midas.h ${DIST_DIR}
-  COMMENT "Copying DLL, executables, LIB, and header to dist/")
+if(WIN32)
+  add_custom_target(
+    copy_dist ALL
+    DEPENDS midas mefa meshed melfp
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/bin
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/include
+    COMMAND
+      ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:midas>
+      $<TARGET_FILE:mefa> $<TARGET_FILE:meshed> $<TARGET_FILE:melfp>
+      $<TARGET_LINKER_FILE:midas> ${DIST_DIR}/bin
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_CURRENT_SOURCE_DIR}/midas.h ${DIST_DIR}/include
+    COMMENT "Copying DLL, executables, LIB, and header to dist/")
+else()
+  add_custom_target(
+    copy_dist ALL
+    DEPENDS midas mefa meshed melfp
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/bin
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/lib
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/include
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:mefa>
+            $<TARGET_FILE:meshed> $<TARGET_FILE:melfp> ${DIST_DIR}/bin
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:midas>
+            ${DIST_DIR}/lib
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_CURRENT_SOURCE_DIR}/midas.h ${DIST_DIR}/include
+    COMMENT "Copying DLL, executables, LIB, and header to dist/")
+endif()

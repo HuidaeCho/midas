@@ -8,6 +8,9 @@ Predefined flow direction encodings in GeoTIFF: power2 (default, r.terraflow, Ar
 
 Custom flow direction encoding is also possible by passing `-e E,SE,S,SW,W,NW,N,NE` (e.g., 1,8,7,6,5,4,3,2 for taudem).
 
+## Installing on Windows from MSVC binaries
+
+
 ## Building on Windows using MSVC
 
 1. Install [Visual Studio Community Edition](https://visualstudio.microsoft.com/vs/community/). Select these two components:
