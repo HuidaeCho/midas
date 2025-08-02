@@ -199,7 +199,7 @@ test_mingw.bat
 ## Benchmark results of MSVC vs. MinGW GCC vs. WSL GCC vs. Linux GCC binaries using CONUS data
 
 System specifications
-* Hardware and OS
+* System model and OS
   * ThinkPad X1 Carbon Gen 11
     * Windows 11 for MSVC and MinGW
     * WSL Linux 5.15.167.4-microsoft-standard-WSL2 for WSL GCC
