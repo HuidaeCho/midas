@@ -303,10 +303,12 @@ Total elapsed time: 24136021 microsec
 * Total time: 24.136021 sec
 
 Ranking by computation time
-1. Linux GCC
+1. Linux GCC: fastest baseline
 2. WSL GCC: 1.78x slower than Linux GCC
 3. MinGW GCC: 5.53x slower than Linux GCC
 4. MSVC: 28.59x slower than Linux GCC
+
+Based on these results, Linux offers the best performance and should be used if possible. If you must use Windows, prefer WSL for better performance. If WSL is not available, MinGW GCC binaries provide the most reasonable performance among native Windows options.
 
 ## Benchmark results
 
