@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "global.h"
+#include "midas.h"
 
 #define SHED(row, col) shed_map->cells.int32[(size_t)(row) * ncols + (col)]
 

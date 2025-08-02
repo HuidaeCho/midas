@@ -1,4 +1,4 @@
-#include "global.h"
+#include "midas.h"
 
 void delineate(struct raster_map *dir_map, struct outlet_list *outlet_l,
                int use_lessmem

@@ -49,7 +49,7 @@ meshed$(EXT): meshed.o $(LIB_NAME)
 melfp$(EXT): melfp.o $(LIB_NAME)
 	$(CC) $(LDFLAGS) -o $@ $^
 
-*.o: global.h raster.h
+*.o: midas.h
 accumulate*.o: accumulate_funcs.h
 delineate*.o: delineate_funcs.h
 lfp*.o: lfp_funcs.h

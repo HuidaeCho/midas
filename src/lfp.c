@@ -1,4 +1,4 @@
-#include "global.h"
+#include "midas.h"
 
 void lfp(struct raster_map *dir_map, struct outlet_list *outlet_l,
          int find_full, int use_lessmem

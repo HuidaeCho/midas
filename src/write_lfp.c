@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <gdal.h>
 #include <ogr_srs_api.h>
-#include "global.h"
+#include "midas.h"
 
 #define INDEX(row, col) ((size_t)(row) * dir_map->ncols + (col))
 #define DIR_NULL dir_map->null_value

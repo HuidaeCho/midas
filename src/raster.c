@@ -2,7 +2,7 @@
 #include <gdal.h>
 #include <cpl_string.h>
 #include <omp.h>
-#include "raster.h"
+#include "midas.h"
 
 void print_raster(const char *path, const char *opts, const char *null_str,
                   const char *fmt)

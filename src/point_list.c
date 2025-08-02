@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "global.h"
+#include "midas.h"
 
 void init_point_list(struct point_list *pl)
 {

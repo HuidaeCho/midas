@@ -11,6 +11,7 @@ set(CMAKE_SKIP_RPATH TRUE)
 # for tail recursion
 if(MSVC)
   add_compile_options(/O2)
+  set(MSVC_SRC gettimeofday.c)
 else()
   add_compile_options(-O3)
 endif()
@@ -40,24 +41,35 @@ add_library(
   lfp.c
   lfp_lessmem.c
   lfp_moremem.c
-  write_lfp.c)
+  write_lfp.c
+  ${MSVC_SRC})
+
+if(WIN32)
+  target_compile_definitions(midas PRIVATE EXPORTS)
+  add_custom_command(
+    TARGET midas
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE_DIR:midas>/midas.exp
+    COMMENT "Removing midas.exp after build")
+endif()
+
 find_library(MATH_LIBRARY m)
-  if(MATH_LIBRARY)
-	  target_link_libraries(midas PUBLIC ${MATH_LIBRARY})
-  endif()
+if(MATH_LIBRARY)
+  target_link_libraries(midas PUBLIC ${MATH_LIBRARY})
+endif()
 find_package(OpenMP REQUIRED)
-  if(OpenMP_C_FOUND)
-	  target_link_libraries(midas PUBLIC OpenMP::OpenMP_C)
-    if(MSVC AND CMAKE_VERSION VERSION_LESS "3.30")
-      # CMake < 3.30 doesn't support OpenMP_RUNTIME_MSVC for task
-      add_compile_options(-openmp:llvm)
-    endif()
+if(OpenMP_C_FOUND)
+  target_link_libraries(midas PUBLIC OpenMP::OpenMP_C)
+  if(MSVC AND CMAKE_VERSION VERSION_LESS "3.30")
+    # CMake < 3.30 doesn't support OpenMP_RUNTIME_MSVC for task
+    add_compile_options(-openmp:llvm)
   endif()
+endif()
 find_package(GDAL REQUIRED)
-  if(GDAL_FOUND)
-    target_link_libraries(midas PUBLIC ${GDAL_LIBRARY})
-    target_include_directories(midas PUBLIC ${GDAL_INCLUDE_DIR})
-  endif()
+if(GDAL_FOUND)
+  target_link_libraries(midas PUBLIC ${GDAL_LIBRARY})
+  target_include_directories(midas PUBLIC ${GDAL_INCLUDE_DIR})
+endif()
 
 foreach(NAME mefa meshed melfp)
   add_executable(${NAME} ${NAME}.c)

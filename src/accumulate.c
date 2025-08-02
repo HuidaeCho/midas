@@ -1,4 +1,4 @@
-#include "global.h"
+#include "midas.h"
 
 void accumulate(struct raster_map *dir_map, struct raster_map *accum_map,
                 int use_lessmem)

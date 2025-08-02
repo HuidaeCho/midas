@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "global.h"
+#include "midas.h"
 
 void init_outlet_list(struct outlet_list *ol)
 {

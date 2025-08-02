@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "global.h"
+#include "midas.h"
 
 int read_encoding(const char *format, double (**recode)(double, void *),
                   int **encoding)

@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#include "global.h"
+#include "midas.h"
 
 #define INDEX(row, col) ((size_t)(row) * ncols + (col))
 #define DIR_NULL dir_map->null_value

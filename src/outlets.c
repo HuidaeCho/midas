@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gdal.h>
-#include "global.h"
+#include "midas.h"
 
 #define DIR(row, col) \
         dir_map->cells.int32[(size_t)(row) * dir_map->ncols + (col)]

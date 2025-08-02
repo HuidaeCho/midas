@@ -3,7 +3,7 @@
 #include <omp.h>
 #include <gdal.h>
 #include <math.h>
-#include "global.h"
+#include "midas.h"
 
 void init_midas(int *num_threads)
 {
