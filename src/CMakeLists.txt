@@ -46,11 +46,6 @@ add_library(
 
 if(WIN32)
   target_compile_definitions(midas PRIVATE EXPORTS)
-  add_custom_command(
-    TARGET midas
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE_DIR:midas>/midas.exp
-    COMMENT "Removing midas.exp after build")
 endif()
 
 find_library(MATH_LIBRARY m)
@@ -75,3 +70,15 @@ foreach(NAME mefa meshed melfp)
   add_executable(${NAME} ${NAME}.c)
   target_link_libraries(${NAME} PUBLIC midas)
 endforeach()
+
+set(DIST_DIR ${CMAKE_BINARY_DIR}/dist)
+
+add_custom_target(
+  copy_dist ALL
+  DEPENDS midas mefa meshed melfp
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}
+  COMMAND
+    ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:midas>
+    $<TARGET_FILE:mefa> $<TARGET_FILE:meshed> $<TARGET_FILE:melfp>
+    $<TARGET_LINKER_FILE:midas> ${CMAKE_CURRENT_SOURCE_DIR}/midas.h ${DIST_DIR}
+  COMMENT "Copying DLL, executables, LIB, and header to dist/")
