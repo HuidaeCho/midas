@@ -2,6 +2,7 @@
 
 <!--ts-->
   * [Related projects](#related-projects)
+  * [References](#references)
   * [Supported flow direction encodings](#supported-flow-direction-encodings)
   * [Installing on Windows from MSVC binaries](#installing-on-windows-from-msvc-binaries)
   * [Installing on Windows from MinGW GCC binaries](#installing-on-windows-from-mingw-gcc-binaries)
@@ -18,7 +19,7 @@
     * [MEFLEN](#meflen)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: hcho, at: Mon Aug  4 07:56:30 MDT 2025 -->
+<!-- Added by: hcho, at: Mon Aug  4 08:46:58 MDT 2025 -->
 
 <!--te-->
 
@@ -26,6 +27,12 @@
 
 * [MIDASFlow Python package](https://github.com/HuidaeCho/midasflow)
 * [MIDAS QGIS plugin](https://github.com/HuidaeCho/midas-qgis)
+
+## References
+
+* [MEFA](https://github.com/HuidaeCho/mefa) (Flow Accumulation): Huidae Cho, July 2023. Memory-Efficient Flow Accumulation Using a Look-Around Approach and Its OpenMP Parallelization. Environmental Modelling & Software 167, 105771. [doi:10.1016/j.envsoft.2023.105771](https://doi.org/10.1016/j.envsoft.2023.105771). [Author's Version](https://idea.isnew.info/publications/Memory-efficient%20flow%20accumulation%20using%20a%20look-around%20approach%20and%20its%20OpenMP%20parallelization%20-%20Cho.2023.pdf).
+* [MESHED](https://github.com/HuidaeCho/meshed) (Watershed Delineation): Huidae Cho, January 2025. Avoid Backtracking and Burn Your Inputs: CONUS-Scale Watershed Delineation Using OpenMP. Environmental Modelling & Software 183, 106244. [doi:10.1016/j.envsoft.2024.106244](https://doi.org/10.1016/j.envsoft.2024.106244). [Author's Version](https://idea.isnew.info/publications/Avoid%20backtracking%20and%20burn%20your%20inputs:%20CONUS-scale%20watershed%20delineation%20using%20OpenMP%20-%20Cho.2025.pdf).
+* [MELFP](https://github.com/HuidaeCho/melfp) (Longest Flow Path): Huidae Cho, In Press, August 2025. Loop Then Task: Hybridizing OpenMP Parallelism to Improve Load Balancing and Memory Efficiency in Continental-Scale Longest Flow Path Computation. Environmental Modelling & Software, 106630. [doi:10.1016/j.envsoft.2025.106630](https://doi.org/10.1016/j.envsoft.2025.106630). [Author's Version](https://idea.isnew.info/publications/Loop%20then%20task%20-%20Hybridizing%20OpenMP%20parallelism%20to%20improve%20load%20balancing%20and%20memory%20efficiency%20in%20continental-scale%20longest%20flow%20path%20computation%20-%20Cho.2025.pdf).
 
 ## Supported flow direction encodings
 
