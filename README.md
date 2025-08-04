@@ -206,8 +206,11 @@ mkdir build
 cd build
 
 # LD_LIBRARY_PATH=$CONDA_PREFIX/lib and -DCMAKE_PREFIX_PATH=$CONDA_PREFIX to avoid system libraries
-LD_LIBRARY_PATH=$CONDA_PREFIX/lib cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX &> cmake.log
-make install DESTDIR=$HOME &> make.log
+(
+LD_LIBRARY_PATH=$CONDA_PREFIX/lib cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX -DCMAKE_INSTALL_PREFIX=$HOME/usr/local &&
+cmake --build . &&
+cmake --install .
+) &> build.log
 ```
 5. Run MIDAS (add `$HOME/usr/local/bin` to `PATH`)
 ```bash
