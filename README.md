@@ -1,6 +1,8 @@
 # Memory-Efficient I/O-Improved Drainage Analysis System (MIDAS)
 
 <!--ts-->
+  * [Related projects](#related-projects)
+  * [Supported flow direction encodings](#supported-flow-direction-encodings)
   * [Installing on Windows from MSVC binaries](#installing-on-windows-from-msvc-binaries)
   * [Installing on Windows from MinGW GCC binaries](#installing-on-windows-from-mingw-gcc-binaries)
   * [Building on Windows using MSVC](#building-on-windows-using-msvc)
@@ -16,12 +18,16 @@
     * [MEFLEN](#meflen)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: hcho, at: Sat Aug  2 16:08:17 MDT 2025 -->
+<!-- Added by: hcho, at: Mon Aug  4 07:55:31 MDT 2025 -->
 
 <!--te-->
 
+## Related projects
+
 * [MIDASFlow](https://github.com/HuidaeCho/midasflow) (Python package)
 * [MIDAS QGIS plugin](https://github.com/HuidaeCho/midas-qgis)
+
+## Supported flow direction encodings
 
 Predefined flow direction encodings in GeoTIFF: power2 (default, r.terraflow, ArcGIS), taudem (d8flowdir), 45degree (r.watershed), degree<br>
 ![image](https://github.com/user-attachments/assets/990f0530-fded-4ee5-bfbb-85056a50ca1c)
