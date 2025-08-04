@@ -100,8 +100,6 @@ int main(int argc, char *argv[])
         exit(EXIT_SUCCESS);
     }
 
-    init_midas(&num_threads);
-
     if (mefa(dir_path, dir_opts, format, accum_path,
              use_lessmem, compress_output, num_threads))
         exit(EXIT_FAILURE);

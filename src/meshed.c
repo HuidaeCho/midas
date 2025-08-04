@@ -14,9 +14,7 @@ int main(int argc, char *argv[])
     int num_threads = 0;
 
 #ifdef LOOP_THEN_TASK
-    int tracing_stack_size;
-
-    read_tracing_stack_size(&tracing_stack_size);
+    int tracing_stack_size = 0;
 #endif
 
     for (i = 1; i < argc; i++) {
@@ -177,8 +175,6 @@ int main(int argc, char *argv[])
 #endif
         exit(print_usage == 1 ? EXIT_SUCCESS : EXIT_FAILURE);
     }
-
-    init_midas(&num_threads);
 
     if (meshed(dir_path, dir_opts, format,
                outlets_path, outlets_layer, outlets_opts, id_col,

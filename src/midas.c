@@ -5,6 +5,8 @@
 #include <math.h>
 #include "midas.h"
 
+static int initialized = 0;
+
 void init_midas(int *num_threads)
 {
     if (*num_threads == 0)
@@ -20,23 +22,22 @@ void init_midas(int *num_threads)
     printf("Using %d threads...\n", *num_threads);
 
     GDALAllRegister();
+
+    initialized = 1;
 }
 
 #ifdef LOOP_THEN_TASK
-void read_tracing_stack_size(int *tracing_stack_size)
+void set_tracing_stack_size(struct raster_map *dir_map, int num_threads,
+                              int *tracing_stack_size)
 {
+    if(*tracing_stack_size == 0){
     char *p;
 
     if ((p = getenv("MIDAS_TRACING_STACK_SIZE")))
         *tracing_stack_size = atoi(p);
     else
         *tracing_stack_size = 1024 * 3;
-}
-
-void guess_tracing_stack_size(struct raster_map *dir_map, int num_threads,
-                              int *tracing_stack_size)
-{
-    if (*tracing_stack_size <= 0) {
+    }else if (*tracing_stack_size < 0) {
         printf
             ("Guessing tracing stack size using sqrt(nrows * ncols) / num_threads...\n");
         *tracing_stack_size =
@@ -58,6 +59,9 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
     struct timeval first_time, start_time, end_time;
 
     gettimeofday(&first_time, NULL);
+
+    if(!initialized)
+	init_midas(&num_threads);
 
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
@@ -138,6 +142,9 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
 
     gettimeofday(&first_time, NULL);
 
+    if(!initialized)
+	init_midas(&num_threads);
+
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
     if (read_encoding(encoding, &recode, &enc))
@@ -192,7 +199,7 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
     }
     else {
 #ifdef LOOP_THEN_TASK
-        guess_tracing_stack_size(dir_map, num_threads, &tracing_stack_size);
+        set_tracing_stack_size(dir_map, num_threads, &tracing_stack_size);
 #endif
 
         printf("Delineating subwatersheds...\n");
@@ -276,6 +283,9 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
 
     gettimeofday(&first_time, NULL);
 
+    if(!initialized)
+	init_midas(&num_threads);
+
     if (lfp_name && use_lessmem == 1) {
         fprintf(stderr,
                 "Forced to preserve input data for vector routing; Using use_lessmem=2\n");
@@ -344,7 +354,7 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
         int num_lfp = 0;
 
 #ifdef LOOP_THEN_TASK
-        guess_tracing_stack_size(dir_map, num_threads, &tracing_stack_size);
+        set_tracing_stack_size(dir_map, num_threads, &tracing_stack_size);
 #endif
 
         printf("Finding longest flow paths...\n");

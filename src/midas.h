@@ -124,8 +124,7 @@ EXPORT void calc_coors(struct raster_map *, int, int, double *, double *);
 EXPORT void init_midas(int *);
 
 #ifdef LOOP_THEN_TASK
-EXPORT void read_tracing_stack_size(int *);
-EXPORT void guess_tracing_stack_size(struct raster_map *, int, int *);
+EXPORT void set_tracing_stack_size(struct raster_map *, int, int *);
 #endif
 EXPORT int mefa(const char *, const char *, const char *, const char *,
                 int, int, int);
