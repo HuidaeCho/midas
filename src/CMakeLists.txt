@@ -101,3 +101,12 @@ else()
             ${CMAKE_CURRENT_SOURCE_DIR}/midas.h ${DIST_DIR}/include
     COMMENT "Copying DLL, executables, LIB, and header to dist/")
 endif()
+
+set_target_properties(midas PROPERTIES PUBLIC_HEADER "midas.h")
+
+install(
+  TARGETS midas mefa meshed melfp
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib
+  PUBLIC_HEADER DESTINATION include)
