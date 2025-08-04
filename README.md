@@ -66,9 +66,9 @@ conda activate midas_msvc
 cd \opt
 git clone https://github.com/HuidaeCho/midas.git
 ```
-5. Run MIDAS (add `C:\opt\midas\windows\msvc` to your `PATH`)
+5. Run MIDAS (add `C:\opt\midas\windows\msvc` to `PATH`)
 ```cmd
-set PATH=C:\opt\midas\windows\msvc;%PATH%
+set PATH=%PATH%;C:\opt\midas\windows\msvc
 mefa
 ```
 
@@ -94,9 +94,9 @@ conda activate midas_mingw
 cd \opt
 git clone https://github.com/HuidaeCho/midas.git
 ```
-5. Run MIDAS (add `C:\opt\midas\windows\mingw` to your `PATH`)
+5. Run MIDAS (add `C:\opt\midas\windows\mingw` to `PATH`)
 ```cmd
-set PATH=C:\opt\midas\windows\mingw;%PATH%
+set PATH=%PATH%;C:\opt\midas\windows\mingw
 mefa
 ```
 
@@ -134,9 +134,9 @@ cd build
 cmake .. > cmake.log 2>&1
 msbuild midas.sln -p:Configuration=Release > msbuild.log 2>&1
 ```
-8. Run MIDAS (add `C:\opt\midas\src\build\dist` to your `PATH`)
+8. Run MIDAS (add `C:\opt\midas\src\build\dist` to `PATH`)
 ```cmd
-set PATH=C:\opt\midas\src\build\dist;%PATH%
+set PATH=%PATH%;C:\opt\midas\src\build\dist
 mefa
 ```
 
@@ -170,9 +170,9 @@ cd build
 cmake .. -G "MinGW Makefiles" > cmake.log 2>&1
 make > make.log 2>&1
 ```
-6. Run MIDAS (add `C:\opt\midas\src\build\dist` to your `PATH`)
+6. Run MIDAS (add `C:\opt\midas\src\build\dist` to `PATH`)
 ```cmd
-set PATH=C:\opt\midas\src\build\dist;%PATH%
+set PATH=%PATH%;C:\opt\midas\src\build\dist
 mefa
 ```
 
@@ -207,11 +207,12 @@ cd build
 
 # LD_LIBRARY_PATH=$CONDA_PREFIX/lib and -DCMAKE_PREFIX_PATH=$CONDA_PREFIX to avoid system libraries
 LD_LIBRARY_PATH=$CONDA_PREFIX/lib cmake .. -DCMAKE_PREFIX_PATH=$CONDA_PREFIX &> cmake.log
-make &> make.log
+make install DESTDIR=$HOME &> make.log
 ```
-5. Run MIDAS
+5. Run MIDAS (add `$HOME/usr/local/bin` to `PATH`)
 ```bash
-./mefa
+export PATH="$PATH:$HOME/usr/local/bin"
+mefa
 ```
 
 ## Testing MSVC binaries on Windows using TX data
