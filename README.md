@@ -20,6 +20,9 @@
 
 <!--te-->
 
+* [MIDASFlow](https://github.com/HuidaeCho/midasflow) (Python package)
+* [MIDAS QGIS plugin](https://github.com/HuidaeCho/midas-qgis)
+
 Predefined flow direction encodings in GeoTIFF: power2 (default, r.terraflow, ArcGIS), taudem (d8flowdir), 45degree (r.watershed), degree<br>
 ![image](https://github.com/user-attachments/assets/990f0530-fded-4ee5-bfbb-85056a50ca1c)
 ![image](https://github.com/user-attachments/assets/a02dfc15-a825-4210-82c4-4c9296dafadc)
