@@ -18,13 +18,13 @@
     * [MEFLEN](#meflen)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: hcho, at: Mon Aug  4 07:55:31 MDT 2025 -->
+<!-- Added by: hcho, at: Mon Aug  4 07:56:30 MDT 2025 -->
 
 <!--te-->
 
 ## Related projects
 
-* [MIDASFlow](https://github.com/HuidaeCho/midasflow) (Python package)
+* [MIDASFlow Python package](https://github.com/HuidaeCho/midasflow)
 * [MIDAS QGIS plugin](https://github.com/HuidaeCho/midas-qgis)
 
 ## Supported flow direction encodings
