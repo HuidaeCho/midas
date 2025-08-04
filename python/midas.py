@@ -3,7 +3,7 @@ from ctypes import *
 
 lib_path = find_library("midas")
 if lib_path is None:
-    raise FileNotFoundError("Cound not find libmidas")
+    raise FileNotFoundError("Cannot find libmidas")
 lib = CDLL(lib_path)
 
 
