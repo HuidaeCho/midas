@@ -136,6 +136,8 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
     struct outlet_list *outlet_l;
     struct timeval first_time, start_time, end_time;
 
+    gettimeofday(&first_time, NULL);
+
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
     if (read_encoding(encoding, &recode, &enc))
