@@ -6,8 +6,10 @@
 #include "midas.h"
 
 static int initialized = 0;
+static void init_midas(int *);
+static void set_tracing_stack_size(struct raster_map *, int, int *);
 
-void init_midas(int *num_threads)
+static void init_midas(int *num_threads)
 {
     if (*num_threads == 0)
         *num_threads = omp_get_max_threads();
@@ -27,17 +29,18 @@ void init_midas(int *num_threads)
 }
 
 #ifdef LOOP_THEN_TASK
-void set_tracing_stack_size(struct raster_map *dir_map, int num_threads,
-                              int *tracing_stack_size)
+static void set_tracing_stack_size(struct raster_map *dir_map,
+                                   int num_threads, int *tracing_stack_size)
 {
-    if(*tracing_stack_size == 0){
-    char *p;
+    if (*tracing_stack_size == 0) {
+        char *p;
 
-    if ((p = getenv("MIDAS_TRACING_STACK_SIZE")))
-        *tracing_stack_size = atoi(p);
-    else
-        *tracing_stack_size = 1024 * 3;
-    }else if (*tracing_stack_size < 0) {
+        if ((p = getenv("MIDAS_TRACING_STACK_SIZE")))
+            *tracing_stack_size = atoi(p);
+        else
+            *tracing_stack_size = 1024 * 3;
+    }
+    else if (*tracing_stack_size < 0) {
         printf
             ("Guessing tracing stack size using sqrt(nrows * ncols) / num_threads...\n");
         *tracing_stack_size =
@@ -60,8 +63,8 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
 
     gettimeofday(&first_time, NULL);
 
-    if(!initialized)
-	init_midas(&num_threads);
+    if (!initialized)
+        init_midas(&num_threads);
 
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
@@ -142,8 +145,8 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
 
     gettimeofday(&first_time, NULL);
 
-    if(!initialized)
-	init_midas(&num_threads);
+    if (!initialized)
+        init_midas(&num_threads);
 
     printf("Reading flow direction raster <%s>...\n", dir_path);
     gettimeofday(&start_time, NULL);
@@ -283,8 +286,8 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
 
     gettimeofday(&first_time, NULL);
 
-    if(!initialized)
-	init_midas(&num_threads);
+    if (!initialized)
+        init_midas(&num_threads);
 
     if (lfp_name && use_lessmem == 1) {
         fprintf(stderr,

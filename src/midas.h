@@ -121,11 +121,6 @@ EXPORT void calc_row_col(struct raster_map *, double, double, int *, int *);
 EXPORT void calc_coors(struct raster_map *, int, int, double *, double *);
 
 /* midas.c */
-EXPORT void init_midas(int *);
-
-#ifdef LOOP_THEN_TASK
-EXPORT void set_tracing_stack_size(struct raster_map *, int, int *);
-#endif
 EXPORT int mefa(const char *, const char *, const char *, const char *,
                 int, int, int);
 EXPORT int meshed(const char *, const char *, const char *, const char *,
