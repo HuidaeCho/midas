@@ -25,7 +25,7 @@
 
 ## Related projects
 
-[MIDAS](https://github.com/HuidaeCho/midas) is the core C library and executables, and is required for all Python, R, and QGIS interfaces. The following projects are thin wrappers or interfaces to MIDAS's shared library.
+[MIDAS](https://github.com/HuidaeCho/midas) is the core C library and executables, and is required for all Python, R, and QGIS interfaces. The following projects are thin wrappers or interfaces to MIDAS's shared library (executables for the QGIS plugin). I designed the QGIS plugin to use subprocesses to isolate long-running or error-prone operations from the main QGIS process.
 * [MIDASFlow](https://github.com/HuidaeCho/midasflow): Python package
 * [MIDASFlow-R](https://github.com/HuidaeCho/midasflow-r): R package
 * [MIDAS-QGIS](https://github.com/HuidaeCho/midas-qgis): QGIS plugin
