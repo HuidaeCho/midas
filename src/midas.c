@@ -129,7 +129,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
 int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
            const char *outlets_path, const char *outlets_layer,
            const char *outlets_opts, const char *id_col,
-           const char *wsheds_path, const char *hier_path,
+           const char *output_path, const char *hier_path,
            int use_lessmem, int compress_output, int save_outlets,
            int num_threads
 #ifdef LOOP_THEN_TASK
@@ -189,9 +189,9 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
     if (save_outlets) {
         printf("Writing outlets...\n");
         gettimeofday(&start_time, NULL);
-        if (write_outlets(wsheds_path, outlet_l) > 0) {
+        if (write_outlets(output_path, outlet_l) > 0) {
             fprintf(stderr, "%s: Failed to write outlets file\n",
-                    wsheds_path);
+                    output_path);
             free_raster(dir_map);
             free_outlet_list(outlet_l);
             return 1;
@@ -218,11 +218,11 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
              timeval_diff(NULL, &end_time, &start_time));
 
         dir_map->compress = compress_output;
-        printf("Writing subwatersheds raster <%s>...\n", wsheds_path);
+        printf("Writing subwatersheds raster <%s>...\n", output_path);
         gettimeofday(&start_time, NULL);
-        if (write_raster(wsheds_path, dir_map, RASTER_MAP_TYPE_AUTO) > 0) {
+        if (write_raster(output_path, dir_map, RASTER_MAP_TYPE_AUTO) > 0) {
             fprintf(stderr, "%s: Failed to write subwatersheds raster\n",
-                    wsheds_path);
+                    output_path);
             free_raster(dir_map);
             free_outlet_list(outlet_l);
             return 1;

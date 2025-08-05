@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
         save_outlets = 0;
     char *dir_path = NULL, *dir_opts = NULL, *format = NULL,
         *outlets_path = NULL, *outlets_layer = NULL, *outlets_opts = NULL,
-        *id_col = NULL, *wsheds_path = NULL, *hier_path = NULL;
+        *id_col = NULL, *output_path = NULL, *hier_path = NULL;
     int num_threads = 0;
 
 #ifdef LOOP_THEN_TASK
@@ -119,8 +119,8 @@ int main(int argc, char *argv[])
             outlets_path = argv[i];
         else if (!id_col)
             id_col = argv[i];
-        else if (!wsheds_path) {
-            wsheds_path = argv[i];
+        else if (!output_path) {
+            output_path = argv[i];
             print_usage = 0;
         }
         else {
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
             ("  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n");
         printf("  outlets\tInput outlets vector\n");
         printf("  id_col\tInput column for outlet IDs\n");
-        printf("  output\tOutput GeoTIFF or output text file with -W\n");
+        printf("  output\tOutput watersheds GeoTIFF or output text file with -W\n");
         printf("  -W\t\tWrite outlet rows and columns, and exit\n");
         printf("  -m\t\tUse less memory\n");
         printf("  -c\t\tCompress output GeoTIFF\n");
@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
 
     if (meshed(dir_path, dir_opts, format,
                outlets_path, outlets_layer, outlets_opts, id_col,
-               wsheds_path, hier_path, compress_output, save_outlets,
+               output_path, hier_path, compress_output, save_outlets,
                use_lessmem, num_threads
 #ifdef LOOP_THEN_TASK
                , tracing_stack_size
