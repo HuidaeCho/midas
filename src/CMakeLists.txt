@@ -6,6 +6,10 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 project(MIDAS C)
 
+# convert lib to lib64 or not
+include(GNUInstallDirs)
+
+# do not hardcode compiled libmidas.so path in executables
 set(CMAKE_SKIP_RPATH TRUE)
 
 # for tail recursion
@@ -104,9 +108,4 @@ endif()
 
 set_target_properties(midas PROPERTIES PUBLIC_HEADER "midas.h")
 
-install(
-  TARGETS midas mefa meshed melfp
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-  ARCHIVE DESTINATION lib
-  PUBLIC_HEADER DESTINATION include)
+install(TARGETS midas mefa meshed melfp)
