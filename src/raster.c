@@ -314,8 +314,8 @@ void copy_raster_metadata(struct raster_map *dest_map,
 }
 
 struct raster_map *read_raster(const char *path, const char *opts, int type,
-                               int get_stats, double (*recode)(double,
-                                                               void *),
+                               int get_stats,
+                               double (*recode)(double, void *),
                                void *recode_data)
 {
     struct raster_map *rast_map;
