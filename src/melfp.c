@@ -171,40 +171,34 @@ int main(int argc, char *argv[])
     if (print_usage) {
         if (print_usage == 2)
             printf("\n");
-        printf("Usage: melfp OPTIONS dir outlets id_col output oid_col\n");
-        printf("\n");
-        printf
-            ("  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n");
-        printf("  outlets\tInput outlets vector\n");
-        printf("  id_col\tInput column for outlet IDs\n");
-        printf("  output\tOutput GeoPackage or output text file with -W\n");
-        printf("  oid_col\tOutput column for outlet IDs\n");
-        printf("  -W\t\tWrite outlet rows and columns, and exit\n");
-        printf("  -f\t\tFind full longest flow paths\n");
-        printf("  -m\t\tUse more memory\n");
-        printf("  -P\t\tDo not preserve input data (faster without -l)\n");
-        printf("  -e encoding\tInput flow direction encoding\n");
-        printf
-            ("\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n");
-        printf("\t\ttaudem: 1-8 (E-SE CCW) (e.g., d8flowdir)\n");
-        printf("\t\t45degree: 1-8 (NE-E CCW) (e.g., r.watershed)\n");
-        printf("\t\tdegree: (0,360] (E-E CCW)\n");
-        printf
-            ("\t\tE,SE,S,SW,W,NW,N,NE: custom (e.g., 1,8,7,6,5,4,3,2 for taudem)\n");
-        printf("  -D opts\tComma-separated list of GDAL options for dir\n");
-        printf
-            ("  -O opts\tComma-separated list of GDAL options for outlets\n");
-        printf
-            ("  -o layer\tLayer name of input outlets vector, if necessary (e.g., gpkg)\n");
-        printf("  -l lfp\tLayer name for output longest flow paths\n");
-        printf("  -h heads\tLayer name for output longest flow path heads\n");
-        printf
-            ("  -c coors.csv\tOutput longest flow path head coordinates CSV\n");
-        printf("  -t threads\tNumber of threads (default OMP_NUM_THREADS)\n");
+        printf("Usage: melfp OPTIONS dir outlets id_col output oid_col\n\n"
+               "  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n"
+               "  outlets\tInput outlets vector\n"
+               "  id_col\tInput column for outlet IDs\n"
+               "  output\tOutput GeoPackage or output text file with -W\n"
+               "  oid_col\tOutput column for outlet IDs\n"
+               "  -W\t\tWrite outlet rows and columns, and exit\n"
+               "  -f\t\tFind full longest flow paths\n"
+               "  -m\t\tUse more memory\n"
+               "  -P\t\tDo not preserve input data (faster without -l)\n"
+               "  -e encoding\tInput flow direction encoding\n"
+               "\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n"
+               "\t\ttaudem: 1-8 (E-SE CCW) (e.g., d8flowdir)\n"
+               "\t\t45degree: 1-8 (NE-E CCW) (e.g., r.watershed)\n"
+               "\t\tdegree: (0,360] (E-E CCW)\n"
+               "\t\tE,SE,S,SW,W,NW,N,NE: custom (e.g., 1,8,7,6,5,4,3,2 for taudem)\n"
+               "  -D opts\tComma-separated list of GDAL options for dir\n"
+               "  -O opts\tComma-separated list of GDAL options for outlets\n"
+               "  -o layer\tLayer name of input outlets vector, if necessary (e.g., gpkg)\n"
+               "  -l lfp\tLayer name for output longest flow paths\n"
+               "  -h heads\tLayer name for output longest flow path heads\n"
+               "  -c coors.csv\tOutput longest flow path head coordinates CSV\n"
+               "  -t threads\tNumber of threads (default OMP_NUM_THREADS)\n"
 #ifdef LOOP_THEN_TASK
-        printf("  -s size\tTracing stack size (default %d, 0 for guessing)\n",
-               tracing_stack_size);
+               "  -s size\tTracing stack size (default %d, 0 for guessing)\n",
+               tracing_stack_size
 #endif
+            );
         exit(print_usage == 1 ? EXIT_SUCCESS : EXIT_FAILURE);
     }
 

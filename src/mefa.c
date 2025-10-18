@@ -80,23 +80,19 @@ int main(int argc, char *argv[])
     if (print_usage) {
         if (print_usage == 2)
             printf("\n");
-        printf("Usage: mefa OPTIONS dir accum\n");
-        printf("\n");
-        printf
-            ("  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n");
-        printf("  accum\t\tOutput flow accumulation GeoTIFF\n");
-        printf("  -m\t\tUse less memory\n");
-        printf("  -z\t\tCompress output GeoTIFF\n");
-        printf("  -e encoding\tInput flow direction encoding\n");
-        printf
-            ("\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n");
-        printf("\t\ttaudem: 1-8 (E-SE CCW) (e.g., d8flowdir)\n");
-        printf("\t\t45degree: 1-8 (NE-E CCW) (e.g., r.watershed)\n");
-        printf("\t\tdegree: (0,360] (E-E CCW)\n");
-        printf
-            ("\t\tE,SE,S,SW,W,NW,N,NE: custom (e.g., 1,8,7,6,5,4,3,2 for taudem)\n");
-        printf("  -D opts\tComma-separated list of GDAL options for dir\n");
-        printf("  -t threads\tNumber of threads (default OMP_NUM_THREADS)\n");
+        printf("Usage: mefa OPTIONS dir accum\n\n"
+               "  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n"
+               "  accum\t\tOutput flow accumulation GeoTIFF\n"
+               "  -m\t\tUse less memory\n"
+               "  -z\t\tCompress output GeoTIFF\n"
+               "  -e encoding\tInput flow direction encoding\n"
+               "\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n"
+               "\t\ttaudem: 1-8 (E-SE CCW) (e.g., d8flowdir)\n"
+               "\t\t45degree: 1-8 (NE-E CCW) (e.g., r.watershed)\n"
+               "\t\tdegree: (0,360] (E-E CCW)\n"
+               "\t\tE,SE,S,SW,W,NW,N,NE: custom (e.g., 1,8,7,6,5,4,3,2 for taudem)\n"
+               "  -D opts\tComma-separated list of GDAL options for dir\n"
+               "  -t threads\tNumber of threads (default OMP_NUM_THREADS)\n");
         exit(EXIT_SUCCESS);
     }
 

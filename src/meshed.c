@@ -144,35 +144,30 @@ int main(int argc, char *argv[])
     if (print_usage) {
         if (print_usage == 2)
             printf("\n");
-        printf("Usage: meshed OPTIONS dir outlets id_col output\n");
-        printf("\n");
-        printf
-            ("  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n");
-        printf("  outlets\tInput outlets vector\n");
-        printf("  id_col\tInput column for outlet IDs\n");
-        printf("  output\tOutput watersheds GeoTIFF or output text file with -W\n");
-        printf("  -W\t\tWrite outlet rows and columns, and exit\n");
-        printf("  -m\t\tUse less memory\n");
-        printf("  -z\t\tCompress output GeoTIFF\n");
-        printf("  -e encoding\tInput flow direction encoding\n");
-        printf
-            ("\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n");
-        printf("\t\ttaudem: 1-8 (E-SE CCW) (e.g., d8flowdir)\n");
-        printf("\t\t45degree: 1-8 (NE-E CCW) (e.g., r.watershed)\n");
-        printf("\t\tdegree: (0,360] (E-E CCW)\n");
-        printf
-            ("\t\tE,SE,S,SW,W,NW,N,NE: custom (e.g., 1,8,7,6,5,4,3,2 for taudem)\n");
-        printf("  -D opts\tComma-separated list of GDAL options for dir\n");
-        printf
-            ("  -O opts\tComma-separated list of GDAL options for outlets\n");
-        printf
-            ("  -o layer\tLayer name of input outlets vector, if necessary (e.g., gpkg)\n");
-        printf("  -h hier.csv\tOutput subwatershed hierarchy CSV\n");
-        printf("  -t threads\tNumber of threads (default OMP_NUM_THREADS)\n");
+        printf("Usage: meshed OPTIONS dir outlets id_col output\n\n"
+               "  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n"
+               "  outlets\tInput outlets vector\n"
+               "  id_col\tInput column for outlet IDs\n"
+               "  output\tOutput watersheds GeoTIFF or output text file with -W\n"
+               "  -W\t\tWrite outlet rows and columns, and exit\n"
+               "  -m\t\tUse less memory\n"
+               "  -z\t\tCompress output GeoTIFF\n"
+               "  -e encoding\tInput flow direction encoding\n"
+               "\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n"
+               "\t\ttaudem: 1-8 (E-SE CCW) (e.g., d8flowdir)\n"
+               "\t\t45degree: 1-8 (NE-E CCW) (e.g., r.watershed)\n"
+               "\t\tdegree: (0,360] (E-E CCW)\n"
+               "\t\tE,SE,S,SW,W,NW,N,NE: custom (e.g., 1,8,7,6,5,4,3,2 for taudem)\n"
+               "  -D opts\tComma-separated list of GDAL options for dir\n"
+               "  -O opts\tComma-separated list of GDAL options for outlets\n"
+               "  -o layer\tLayer name of input outlets vector, if necessary (e.g., gpkg)\n"
+               "  -h hier.csv\tOutput subwatershed hierarchy CSV\n"
+               "  -t threads\tNumber of threads (default OMP_NUM_THREADS)\n"
 #ifdef LOOP_THEN_TASK
-        printf("  -s size\tTracing stack size (default %d, 0 for guessing)\n",
-               tracing_stack_size);
+               "  -s size\tTracing stack size (default %d, 0 for guessing)\n",
+               tracing_stack_size
 #endif
+            );
         exit(print_usage == 1 ? EXIT_SUCCESS : EXIT_FAILURE);
     }
 
