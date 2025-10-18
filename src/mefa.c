@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
                 case 'm':
                     use_lessmem = 1;
                     break;
-                case 'c':
+                case 'z':
                     compress_output = 1;
                     break;
                 case 'e':
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
             ("  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n");
         printf("  accum\t\tOutput flow accumulation GeoTIFF\n");
         printf("  -m\t\tUse less memory\n");
-        printf("  -c\t\tCompress output GeoTIFF\n");
+        printf("  -z\t\tCompress output GeoTIFF\n");
         printf("  -e encoding\tInput flow direction encoding\n");
         printf
             ("\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n");

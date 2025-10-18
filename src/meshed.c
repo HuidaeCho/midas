@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
                 case 'm':
                     use_lessmem = 1;
                     break;
-                case 'c':
+                case 'z':
                     compress_output = 1;
                     break;
                 case 'e':
@@ -133,9 +133,9 @@ int main(int argc, char *argv[])
 
     if (save_outlets && (compress_output || hier_path)) {
         if (compress_output && hier_path)
-            fprintf(stderr, "Unable to process -W, -c, and -h at once\n");
+            fprintf(stderr, "Unable to process -W, -z, and -h at once\n");
         else if (compress_output)
-            fprintf(stderr, "Unable to process both -W and -c\n");
+            fprintf(stderr, "Unable to process both -W and -z\n");
         else
             fprintf(stderr, "Unable to process both -W and -h\n");
         print_usage = 2;
@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
         printf("  output\tOutput watersheds GeoTIFF or output text file with -W\n");
         printf("  -W\t\tWrite outlet rows and columns, and exit\n");
         printf("  -m\t\tUse less memory\n");
-        printf("  -c\t\tCompress output GeoTIFF\n");
+        printf("  -z\t\tCompress output GeoTIFF\n");
         printf("  -e encoding\tInput flow direction encoding\n");
         printf
             ("\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n");
