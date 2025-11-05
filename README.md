@@ -27,8 +27,8 @@
 
 [MIDAS](https://github.com/HuidaeCho/midas) is the core C library and executables, and is required for all Python, R, and QGIS interfaces. The following projects are thin wrappers or interfaces to MIDAS's shared library (executables for the QGIS plugin). I designed the QGIS plugin to use subprocesses to isolate long-running or error-prone operations from the main QGIS process.
 * [r.flowaccumulation](https://grass.osgeo.org/grass-stable/manuals/addons/r.flowaccumulation.html): [GRASS](https://grass.osgeo.org/) addon for [MEFA](https://github.com/HuidaeCho/mefa)
-* [r.hydrobasin](https://grass.osgeo.org/grass-stable/manuals/addons/r.hydrobasin.html): [GRASS](https://grass.osgeo.org/) addon for [MEFA](https://github.com/HuidaeCho/meshed)
-* [r.lfp](https://grass.osgeo.org/grass-stable/manuals/addons/r.lfp.html): [GRASS](https://grass.osgeo.org/) addon for [MEFA](https://github.com/HuidaeCho/melfp)
+* [r.hydrobasin](https://grass.osgeo.org/grass-stable/manuals/addons/r.hydrobasin.html): [GRASS](https://grass.osgeo.org/) addon for [MESHED](https://github.com/HuidaeCho/meshed)
+* [r.lfp](https://grass.osgeo.org/grass-stable/manuals/addons/r.lfp.html): [GRASS](https://grass.osgeo.org/) addon for [MELFP](https://github.com/HuidaeCho/melfp)
 * [MIDASFlow](https://github.com/HuidaeCho/midasflow): Python package
 * [MIDASFlow-R](https://github.com/HuidaeCho/midasflow-r): R package
 * [MIDAS-QGIS](https://github.com/HuidaeCho/midas-qgis): QGIS plugin
