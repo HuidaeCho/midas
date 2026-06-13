@@ -4,38 +4,37 @@
 #include <math.h>
 #include "midas.h"
 
-int read_encoding(const char *format, double (**recode)(double, void *),
-                  int **encoding)
+int read_encoding(const char *encoding_type,
+                  double (**recode)(double, void *), int **encoding)
 {
     int enc[8];
 
-    if (!format || strcmp(format, "power2") == 0) {
+    if (!encoding_type || strcmp(encoding_type, "power2") == 0) {
         *recode = NULL;
         *encoding = NULL;
         return 0;
     }
-    else if (strcmp(format, "taudem") == 0) {
+    else if (strcmp(encoding_type, "taudem") == 0) {
         int i;
 
         for (i = 1; i < 9; i++)
             enc[i % 8] = 9 - i;
     }
-    else if (strcmp(format, "45degree") == 0) {
+    else if (strcmp(encoding_type, "45degree") == 0) {
         int i;
 
         for (i = 0; i < 8; i++)
             enc[i] = 8 - i;
     }
-    else if (strcmp(format, "degree") == 0) {
+    else if (strcmp(encoding_type, "degree") == 0) {
         *recode = recode_degree;
         *encoding = NULL;
         return 0;
     }
     else if (sscanf
-             (format, "%d,%d,%d,%d,%d,%d,%d,%d",
-              &enc[0], &enc[1], &enc[2],
-              &enc[3], &enc[4], &enc[5], &enc[6], &enc[7]) != 8) {
-        fprintf(stderr, "%s: Invalid encoding\n", format);
+             (encoding_type, "%d,%d,%d,%d,%d,%d,%d,%d", &enc[0], &enc[1],
+              &enc[2], &enc[3], &enc[4], &enc[5], &enc[6], &enc[7]) != 8) {
+        fprintf(stderr, "%s: Invalid encoding\n", encoding_type);
         return 1;
     }
 

@@ -139,6 +139,8 @@ EXPORT int melfp(const char *, const char *, const char *, const char *,
                  , int
 #endif
     );
+EXPORT int meufl(const char *, const char *, const char *, const char *, int,
+                 int, int, int);
 
 /* timeval_diff.c */
 EXPORT long long timeval_diff(struct timeval *, struct timeval *,
@@ -216,6 +218,7 @@ EXPORT void reset_point_list(struct point_list *);
 EXPORT void free_point_list(struct point_list *);
 EXPORT void add_point(struct point_list *, int, int);
 
+/* lfp.c */
 EXPORT void lfp(struct raster_map *, struct outlet_list *, int, int
 #ifdef LOOP_THEN_TASK
                 , int
@@ -243,5 +246,26 @@ EXPORT int write_lfp_heads(const char *, const char *, const char *,
                            struct outlet_list *, struct raster_map *, int);
 EXPORT int write_lfp_head_coors(const char *, const char *,
                                 struct outlet_list *, struct raster_map *);
+
+/*******************************************************************************
+ * MEUFL only
+ ******************************************************************************/
+#ifdef USE_FLOAT64_LENGTH
+#define LENGTH_RASTER_TYPE RASTER_TYPE_FLOAT64
+#else
+#define LENGTH_RASTER_TYPE RASTER_TYPE_FLOAT32
+#endif
+
+/* uflen.c */
+EXPORT void uflen(struct raster_map *, struct raster_map *, int, int);
+
+/* uflen_leastmem.c */
+EXPORT void uflen_leastmem(struct raster_map *, int);
+
+/* uflen_lessmem.c */
+EXPORT void uflen_lessmem(struct raster_map *, struct raster_map *, int);
+
+/* uflen_moremem.c */
+EXPORT void uflen_moremem(struct raster_map *, struct raster_map *, int);
 
 #endif

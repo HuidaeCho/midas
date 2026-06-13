@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     int i;
     int print_usage = 1, use_lessmem = 0, compress_output = 0,
         save_outlets = 0;
-    char *dir_path = NULL, *dir_opts = NULL, *format = NULL,
+    char *dir_path = NULL, *dir_opts = NULL, *encoding = NULL,
         *outlets_path = NULL, *outlets_layer = NULL, *outlets_opts = NULL,
         *id_col = NULL, *output_path = NULL, *hier_path = NULL;
     int num_threads = 0;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
                         print_usage = 2;
                         break;
                     }
-                    format = argv[++i];
+                    encoding = argv[++i];
                     break;
                 case 'D':
                     if (i == argc - 1) {
@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
         exit(print_usage == 1 ? EXIT_SUCCESS : EXIT_FAILURE);
     }
 
-    if (meshed(dir_path, dir_opts, format,
+    if (meshed(dir_path, dir_opts, encoding,
                outlets_path, outlets_layer, outlets_opts, id_col,
                output_path, hier_path, compress_output, save_outlets,
                use_lessmem, num_threads

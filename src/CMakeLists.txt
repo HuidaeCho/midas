@@ -46,6 +46,10 @@ add_library(
   lfp_lessmem.c
   lfp_moremem.c
   write_lfp.c
+  uflen.c
+  uflen_leastmem.c
+  uflen_lessmem.c
+  uflen_moremem.c
   ${MSVC_SRC})
 
 if(WIN32)
@@ -70,7 +74,7 @@ if(GDAL_FOUND)
   target_include_directories(midas PUBLIC ${GDAL_INCLUDE_DIR})
 endif()
 
-foreach(NAME mefa meshed melfp)
+foreach(NAME mefa meshed melfp meufl)
   add_executable(${NAME} ${NAME}.c)
   target_link_libraries(${NAME} PUBLIC midas)
 endforeach()
@@ -80,25 +84,27 @@ set(DIST_DIR ${CMAKE_BINARY_DIR}/dist)
 if(WIN32)
   add_custom_target(
     copy_dist ALL
-    DEPENDS midas mefa meshed melfp
+    DEPENDS midas mefa meshed melfp meufl
     COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/bin
     COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/include
     COMMAND
       ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:midas>
       $<TARGET_FILE:mefa> $<TARGET_FILE:meshed> $<TARGET_FILE:melfp>
-      $<TARGET_LINKER_FILE:midas> ${DIST_DIR}/bin
+      $<TARGET_FILE:meufl> $<TARGET_LINKER_FILE:midas> ${DIST_DIR}/bin
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             ${CMAKE_CURRENT_SOURCE_DIR}/midas.h ${DIST_DIR}/include
     COMMENT "Copying DLL, executables, LIB, and header to dist/")
 else()
   add_custom_target(
     copy_dist ALL
-    DEPENDS midas mefa meshed melfp
+    DEPENDS midas mefa meshed melfp meufl
     COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/bin
     COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/lib
     COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIR}/include
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:mefa>
-            $<TARGET_FILE:meshed> $<TARGET_FILE:melfp> ${DIST_DIR}/bin
+    COMMAND
+      ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:mefa>
+      $<TARGET_FILE:meufl> $<TARGET_FILE:meshed> $<TARGET_FILE:melfp>
+      ${DIST_DIR}/bin
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:midas>
             ${DIST_DIR}/lib
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -108,4 +114,4 @@ endif()
 
 set_target_properties(midas PROPERTIES PUBLIC_HEADER "midas.h")
 
-install(TARGETS midas mefa meshed melfp)
+install(TARGETS midas mefa meshed melfp meufl)

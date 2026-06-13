@@ -70,19 +70,9 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
     gettimeofday(&start_time, NULL);
     if (read_encoding(encoding, &recode, &enc))
         fprintf(stderr, "%s: Invalid encoding\n", encoding);
-    if (recode) {
-        printf("Converting flow direction encoding...\n");
-        if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, recode,
-                          enc))) {
-            fprintf(stderr, "%s: Failed to read flow direction raster\n",
-                    dir_path);
-            return 1;
-        }
-    }
-    else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, NULL,
-                           NULL))) {
+    if (!
+        (dir_map =
+         read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, recode, enc))) {
         fprintf(stderr, "%s: Failed to read flow direction raster\n",
                 dir_path);
         return 1;
@@ -152,19 +142,10 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
     gettimeofday(&start_time, NULL);
     if (read_encoding(encoding, &recode, &enc))
         fprintf(stderr, "%s: Invalid encoding\n", encoding);
-    if (recode) {
-        printf("Converting flow direction encoding...\n");
-        if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_TYPE_INT32, 0,
-                          recode, enc))) {
-            fprintf(stderr, "%s: Failed to read flow direction raster\n",
-                    dir_path);
-            return 1;
-        }
-    }
-    else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_TYPE_INT32, 0, NULL,
-                           NULL))) {
+    if (!
+        (dir_map =
+         read_raster(dir_path, dir_opts, RASTER_TYPE_INT32, 0, recode,
+                     enc))) {
         fprintf(stderr, "%s: Failed to read flow direction raster\n",
                 dir_path);
         return 1;
@@ -299,19 +280,9 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
     gettimeofday(&start_time, NULL);
     if (read_encoding(encoding, &recode, &enc))
         fprintf(stderr, "%s: Invalid encoding\n", encoding);
-    if (recode) {
-        printf("Converting flow direction encoding...\n");
-        if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, recode,
-                          enc))) {
-            fprintf(stderr, "%s: Failed to read flow direction raster\n",
-                    dir_path);
-            return 1;
-        }
-    }
-    else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, NULL,
-                           NULL))) {
+    if (!
+        (dir_map =
+         read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, recode, enc))) {
         fprintf(stderr, "%s: Failed to read flow direction raster\n",
                 dir_path);
         return 1;
@@ -437,6 +408,79 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
 
     free_raster(dir_map);
     free_outlet_list(outlet_l);
+
+    gettimeofday(&end_time, NULL);
+    printf("Total elapsed time: %lld microsec\n",
+           timeval_diff(NULL, &end_time, &first_time));
+
+    return 0;
+}
+
+int meufl(const char *dir_path, const char *dir_opts, const char *encoding,
+          const char *flen_path, int from_one, int use_lessmem,
+          int compress_output, int num_threads)
+{
+    double (*recode)(double, void *);
+    int *enc;
+    struct raster_map *dir_map, *flen_map = NULL;
+    struct timeval first_time, start_time, end_time;
+
+    gettimeofday(&first_time, NULL);
+
+    if (!initialized)
+        init_midas(&num_threads);
+
+    printf("Reading flow direction raster <%s>...\n", dir_path);
+    gettimeofday(&start_time, NULL);
+    if (read_encoding(encoding, &recode, &enc))
+        fprintf(stderr, "%s: Invalid encoding\n", encoding);
+    if (!(dir_map = read_raster(dir_path, dir_opts, use_lessmem == 2 ?
+                                LENGTH_RASTER_TYPE : RASTER_TYPE_BYTE, 0,
+                                recode, enc))) {
+        fprintf(stderr, "%s: Failed to read flow direction raster\n",
+                dir_path);
+        return 1;
+    }
+    gettimeofday(&end_time, NULL);
+    printf("Input time for flow direction: %lld microsec\n",
+           timeval_diff(NULL, &end_time, &start_time));
+
+    if (use_lessmem != 2) {
+        flen_map =
+            init_raster(dir_map->nrows, dir_map->ncols, LENGTH_RASTER_TYPE);
+        copy_raster_metadata(flen_map, dir_map);
+    }
+
+    printf("Calculating flow length...\n");
+    gettimeofday(&start_time, NULL);
+    uflen(dir_map, flen_map, use_lessmem, from_one);
+    gettimeofday(&end_time, NULL);
+    printf("Computation time for flow length: %lld microsec\n",
+           timeval_diff(NULL, &end_time, &start_time));
+    if (use_lessmem != 2)
+        free_raster(dir_map);
+
+    if (flen_path) {
+        if (use_lessmem == 2)
+            dir_map->compress = compress_output;
+        else
+            flen_map->compress = compress_output;
+
+        printf("Writing flow length raster <%s>...\n", flen_path);
+        gettimeofday(&start_time, NULL);
+        if (write_raster
+            (flen_path, use_lessmem == 2 ? dir_map : flen_map,
+             RASTER_TYPE_AUTO) > 0) {
+            printf("%s: Failed to write flow length raster\n", flen_path);
+            free_raster(use_lessmem == 2 ? dir_map : flen_map);
+            return 1;
+        }
+        gettimeofday(&end_time, NULL);
+        printf("Output time for flow length: %lld microsec\n",
+               timeval_diff(NULL, &end_time, &start_time));
+    }
+
+    free_raster(use_lessmem == 2 ? dir_map : flen_map);
 
     gettimeofday(&end_time, NULL);
     printf("Total elapsed time: %lld microsec\n",

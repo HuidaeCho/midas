@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     int i;
     int print_usage = 1, find_full = 0, use_lessmem = 2, save_outlets = 0;
-    char *dir_path = NULL, *dir_opts = NULL, *format = NULL,
+    char *dir_path = NULL, *dir_opts = NULL, *encoding = NULL,
         *outlets_path = NULL, *outlets_layer = NULL, *outlets_opts = NULL,
         *id_col = NULL,
         *output_path = NULL, *oid_col = NULL,
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
                         print_usage = 2;
                         break;
                     }
-                    format = argv[++i];
+                    encoding = argv[++i];
                     break;
                 case 'D':
                     if (i == argc - 1) {
@@ -202,12 +202,12 @@ int main(int argc, char *argv[])
         exit(print_usage == 1 ? EXIT_SUCCESS : EXIT_FAILURE);
     }
 
-    if (melfp(dir_path, dir_opts, format,
-              outlets_path, outlets_layer, outlets_opts, id_col,
-              output_path, oid_col, lfp_name, heads_name, coors_path,
-              find_full, use_lessmem, save_outlets, num_threads
+    if (melfp
+        (dir_path, dir_opts, encoding, outlets_path, outlets_layer,
+         outlets_opts, id_col, output_path, oid_col, lfp_name, heads_name,
+         coors_path, find_full, use_lessmem, save_outlets, num_threads
 #ifdef LOOP_THEN_TASK
-              , tracing_stack_size
+         , tracing_stack_size
 #endif
         ))
         exit(EXIT_FAILURE);

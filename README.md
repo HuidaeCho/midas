@@ -16,7 +16,7 @@
     * [MEFA](#mefa)
     * [MESHED](#meshed)
     * [MELFP](#melfp)
-    * [MEFLEN](#meflen)
+    * [MEUFL](#meufl)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
 <!-- Added by: hcho, at: Mon Aug  4 08:46:58 MDT 2025 -->
@@ -29,6 +29,7 @@
 * [r.flowaccumulation](https://grass.osgeo.org/grass-stable/manuals/addons/r.flowaccumulation.html): [GRASS](https://grass.osgeo.org/) addon for [MEFA](https://github.com/HuidaeCho/mefa)
 * [r.hydrobasin](https://grass.osgeo.org/grass-stable/manuals/addons/r.hydrobasin.html): [GRASS](https://grass.osgeo.org/) addon for [MESHED](https://github.com/HuidaeCho/meshed)
 * [r.lfp](https://grass.osgeo.org/grass-stable/manuals/addons/r.lfp.html): [GRASS](https://grass.osgeo.org/) addon for [MELFP](https://github.com/HuidaeCho/melfp)
+* [r.upflowlength](https://grass.osgeo.org/grass-stable/manuals/addons/r.upflowlength.html): [GRASS](https://grass.osgeo.org/) addon for [MEUFL](https://github.com/HuidaeCho/meufl)
 * [MIDASFlow](https://github.com/HuidaeCho/midasflow): Python package
 * [MIDASFlow-R](https://github.com/HuidaeCho/midasflow-r): R package
 * [MIDAS-QGIS](https://github.com/HuidaeCho/midas-qgis): QGIS plugin
@@ -38,6 +39,7 @@
 * [MEFA](https://github.com/HuidaeCho/mefa) (Flow Accumulation): Huidae Cho, July 2023. Memory-Efficient Flow Accumulation Using a Look-Around Approach and Its OpenMP Parallelization. Environmental Modelling & Software 167, 105771. [doi:10.1016/j.envsoft.2023.105771](https://doi.org/10.1016/j.envsoft.2023.105771). [Author's Version](https://idea.isnew.info/publications/Memory-efficient%20flow%20accumulation%20using%20a%20look-around%20approach%20and%20its%20OpenMP%20parallelization%20-%20Cho.2023.pdf).
 * [MESHED](https://github.com/HuidaeCho/meshed) (Watershed Delineation): Huidae Cho, January 2025. Avoid Backtracking and Burn Your Inputs: CONUS-Scale Watershed Delineation Using OpenMP. Environmental Modelling & Software 183, 106244. [doi:10.1016/j.envsoft.2024.106244](https://doi.org/10.1016/j.envsoft.2024.106244). [Author's Version](https://idea.isnew.info/publications/Avoid%20backtracking%20and%20burn%20your%20inputs:%20CONUS-scale%20watershed%20delineation%20using%20OpenMP%20-%20Cho.2025.pdf).
 * [MELFP](https://github.com/HuidaeCho/melfp) (Longest Flow Path): Huidae Cho, September 2025. Loop Then Task: Hybridizing OpenMP Parallelism to Improve Load Balancing and Memory Efficiency in Continental-Scale Longest Flow Path Computation. Environmental Modelling & Software 193, 106630. [doi:10.1016/j.envsoft.2025.106630](https://doi.org/10.1016/j.envsoft.2025.106630). [Author's Version](https://idea.isnew.info/publications/Loop%20then%20task%20-%20Hybridizing%20OpenMP%20parallelism%20to%20improve%20load%20balancing%20and%20memory%20efficiency%20in%20continental-scale%20longest%20flow%20path%20computation%20-%20Cho.2025.pdf).
+* [MEUFL](https://github.com/HuidaeCho/meufl) (Upstream Flow Length): Huidae Cho, September 2026. Flow in Float: Memory-Efficient Upstream Flow Length Parallel Computation Using an IEEE-754-Based Union Encoding. Environmental Modelling & Software 204, 107045. [doi:10.1016/j.envsoft.2026.107045](https://doi.org/10.1016/j.envsoft.2026.107045). [Author's Version](https://idea.isnew.info/publications/Flow%20in%20float%20-%20Memory-efficient%20upstream%20flow%20length%20parallel%20computation%20using%20an%20IEEE-754-based%20union%20encoding%20-%20Cho.2026.pdf).
 
 ## Supported flow direction encodings
 
@@ -382,7 +384,7 @@ Citation
 
 ![image](https://github.com/HuidaeCho/midas/assets/7456117/0c1fdd15-b900-407c-b89b-503a6c0b2dc2)
 
-### MEFLEN
+### MEUFL
 
 ![image](https://github.com/HuidaeCho/midas/assets/7456117/3a67d9ec-8649-4d24-97a7-b5d3dd5115c7)
 

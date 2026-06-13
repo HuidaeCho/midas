@@ -10,7 +10,7 @@ endif
 CFLAGS=-Wall -Werror -O3 $(GDAL_CFLAGS)
 LDFLAGS=-O3
 
-all: $(LIB_NAME) mefa$(EXT) meshed$(EXT) melfp$(EXT)
+all: $(LIB_NAME) mefa$(EXT) meshed$(EXT) melfp$(EXT) meufl$(EXT)
 
 clean:
 	$(RM) *.o
@@ -32,7 +32,11 @@ LIB_OBJS=midas.o \
 	 lfp.o \
 	 lfp_lessmem.o \
 	 lfp_moremem.o \
-	 write_lfp.o
+	 write_lfp.o \
+	 uflen.o \
+	 uflen_leastmem.o \
+	 uflen_lessmem.o \
+	 uflen_moremem.o
 
 $(LIB_OBJS): CFLAGS+=-fpic -fopenmp $(GDAL_CFLAGS)
 $(LIB_NAME): LDFLAGS+=-shared -Wl,-soname,$(LIB_NAME) -fopenmp -lm $(GDAL_LIBS)
@@ -49,7 +53,11 @@ meshed$(EXT): meshed.o $(LIB_NAME)
 melfp$(EXT): melfp.o $(LIB_NAME)
 	$(CC) $(LDFLAGS) -o $@ $^
 
+meufl$(EXT): meufl.o $(LIB_NAME)
+	$(CC) $(LDFLAGS) -o $@ $^
+
 *.o: midas.h
 accumulate*.o: accumulate_funcs.h
 delineate*.o: delineate_funcs.h
 lfp*.o: lfp_funcs.h
+uflen*.o: uflen_funcs.h
