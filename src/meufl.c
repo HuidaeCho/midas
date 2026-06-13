@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
     }
 
     if (!flen_path && !calc_md5) {
-        fprintf(stderr, "Either -o or -m is required\n");
+        fprintf(stderr, "Either -o or -c is required\n");
         print_usage = 2;
     }
 
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
             printf("\n");
         printf("Usage: meufl OPTIONS dir\n\n"
                "  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n"
-               "  -o uflen\tOutput upstream flow length GeoTIFF (or -m required)\n"
+               "  -o uflen\tOutput upstream flow length GeoTIFF (or -c required)\n"
                "  -c\t\tCalculate MD5 (or -o required)\n"
                "  -1\t\tCount from 1 (default: 0)\n"
                "  -m\t\tUse more memory\n"
