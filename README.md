@@ -364,7 +364,7 @@ Based on these results, Linux offers the best performance and should be used if 
 
 ### MEFA
 
-![MEFA Graphical Abstract](https://idea.isnew.info/publications/Memory-efficient%20flow%20accumulation%20using%20a%20look-around%20approach%20and%20its%20OpenMP%20parallelization%20-%20Graphical%20abstract.png)
+![MEFA Graphical Abstract](https://github.com/user-attachments/assets/5093af78-0d84-495a-8853-167cda0a0df2)
 
 System specifications
 * CPU: Intel Core i9-12900 @ 2.40GHz
