@@ -69,14 +69,14 @@ struct shed_hier
 };
 
 /* raster.c */
-#define RASTER_MAP_TYPE_AUTO 0
-#define RASTER_MAP_TYPE_BYTE 1
-#define RASTER_MAP_TYPE_INT16 2
-#define RASTER_MAP_TYPE_UINT16 3
-#define RASTER_MAP_TYPE_INT32 4
-#define RASTER_MAP_TYPE_UINT32 5
-#define RASTER_MAP_TYPE_FLOAT32 6
-#define RASTER_MAP_TYPE_FLOAT64 7
+#define RASTER_TYPE_AUTO 0
+#define RASTER_TYPE_BYTE 1
+#define RASTER_TYPE_INT16 2
+#define RASTER_TYPE_UINT16 3
+#define RASTER_TYPE_INT32 4
+#define RASTER_TYPE_UINT32 5
+#define RASTER_TYPE_FLOAT32 6
+#define RASTER_TYPE_FLOAT64 7
 
 struct raster_map
 {
@@ -103,6 +103,7 @@ struct raster_map
     double max;
     double mean;
     double sd;
+    unsigned char *md5;
 };
 
 EXPORT void print_raster(const char *, const char *, const char *,

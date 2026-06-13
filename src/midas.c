@@ -73,7 +73,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
     if (recode) {
         printf("Converting flow direction encoding...\n");
         if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, recode,
+              read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, recode,
                           enc))) {
             fprintf(stderr, "%s: Failed to read flow direction raster\n",
                     dir_path);
@@ -81,7 +81,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
         }
     }
     else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, NULL,
+               read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, NULL,
                            NULL))) {
         fprintf(stderr, "%s: Failed to read flow direction raster\n",
                 dir_path);
@@ -93,7 +93,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
            timeval_diff(NULL, &end_time, &start_time));
 
     accum_map = init_raster(dir_map->nrows, dir_map->ncols,
-                            RASTER_MAP_TYPE_UINT32);
+                            RASTER_TYPE_UINT32);
     copy_raster_metadata(accum_map, dir_map);
 
     printf("Accumulating flows...\n");
@@ -107,7 +107,7 @@ int mefa(const char *dir_path, const char *dir_opts, const char *encoding,
     accum_map->compress = compress_output;
     printf("Writing flow accumulation raster <%s>...\n", accum_path);
     gettimeofday(&start_time, NULL);
-    if (write_raster(accum_path, accum_map, RASTER_MAP_TYPE_AUTO) > 0) {
+    if (write_raster(accum_path, accum_map, RASTER_TYPE_AUTO) > 0) {
         fprintf(stderr, "%s: Failed to write flow accumulation raster\n",
                 accum_path);
         free_raster(accum_map);
@@ -155,7 +155,7 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
     if (recode) {
         printf("Converting flow direction encoding...\n");
         if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_INT32, 0,
+              read_raster(dir_path, dir_opts, RASTER_TYPE_INT32, 0,
                           recode, enc))) {
             fprintf(stderr, "%s: Failed to read flow direction raster\n",
                     dir_path);
@@ -163,7 +163,7 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
         }
     }
     else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_INT32, 0, NULL,
+               read_raster(dir_path, dir_opts, RASTER_TYPE_INT32, 0, NULL,
                            NULL))) {
         fprintf(stderr, "%s: Failed to read flow direction raster\n",
                 dir_path);
@@ -220,7 +220,7 @@ int meshed(const char *dir_path, const char *dir_opts, const char *encoding,
         dir_map->compress = compress_output;
         printf("Writing subwatersheds raster <%s>...\n", output_path);
         gettimeofday(&start_time, NULL);
-        if (write_raster(output_path, dir_map, RASTER_MAP_TYPE_AUTO) > 0) {
+        if (write_raster(output_path, dir_map, RASTER_TYPE_AUTO) > 0) {
             fprintf(stderr, "%s: Failed to write subwatersheds raster\n",
                     output_path);
             free_raster(dir_map);
@@ -302,7 +302,7 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
     if (recode) {
         printf("Converting flow direction encoding...\n");
         if (!(dir_map =
-              read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, recode,
+              read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, recode,
                           enc))) {
             fprintf(stderr, "%s: Failed to read flow direction raster\n",
                     dir_path);
@@ -310,7 +310,7 @@ int melfp(const char *dir_path, const char *dir_opts, const char *encoding,
         }
     }
     else if (!(dir_map =
-               read_raster(dir_path, dir_opts, RASTER_MAP_TYPE_BYTE, 0, NULL,
+               read_raster(dir_path, dir_opts, RASTER_TYPE_BYTE, 0, NULL,
                            NULL))) {
         fprintf(stderr, "%s: Failed to read flow direction raster\n",
                 dir_path);
