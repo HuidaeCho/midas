@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     int i;
-    int print_usage = 1, use_lessmem = 0, compress_output = 0;
+    int print_usage = 1, use_lessmem = 1, compress_output = 0;
     char *dir_path = NULL, *dir_opts = NULL, *encoding = NULL,
         *accum_path = NULL;
     int num_threads = 0;
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
             for (j = 1; j < n && !unknown; j++) {
                 switch (argv[i][j]) {
                 case 'm':
-                    use_lessmem = 1;
+                    use_lessmem = 0;
                     break;
                 case 'z':
                     compress_output = 1;
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         printf("Usage: mefa OPTIONS dir accum\n\n"
                "  dir\t\tInput flow direction raster (e.g., gpkg:file.gpkg:layer)\n"
                "  accum\t\tOutput flow accumulation GeoTIFF\n"
-               "  -m\t\tUse less memory\n"
+               "  -m\t\tUse more memory\n"
                "  -z\t\tCompress output GeoTIFF\n"
                "  -e encoding\tInput flow direction encoding\n"
                "\t\tpower2 (default): 2^0-7 CW from E (e.g., r.terraflow, ArcGIS)\n"
